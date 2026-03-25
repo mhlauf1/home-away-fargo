@@ -9,10 +9,10 @@ export default function TextLogo({className = '', align = 'center'}: TextLogoPro
       className={`flex flex-col ${align === 'left' ? 'items-start' : 'items-center'} ${className}`}
     >
       <span className="font-heading text-2xl md:text-3xl leading-tighter font-bold tracking-tight">
-        Hound Around
+        Home Away
       </span>
       <span className="font-sans text-[10px] md:text-[13px] font-semibold uppercase tracking-[0.2em] leading-tight">
-        Resort
+        From Home
       </span>
     </div>
   )

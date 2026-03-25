@@ -4,40 +4,137 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* ============================================================
+   THEME SYSTEM
+   Three themes: Hearthstone, Prairie Modern, Farmstead Blue.
+   Each theme defines CSS custom properties on :root via
+   data-theme attribute. The @theme block references these
+   variables so all existing Tailwind classes (bg-cream,
+   text-forest, etc.) automatically adapt per theme.
+   ============================================================ */
+
+/* --- Hearthstone (default) ---
+   Warm, cozy, rustic — barn-red siding, stone accents.
+   Fonts: Lora (heading) + Nunito (body)
+*/
+:root,
+[data-theme='hearthstone'] {
+  --theme-cream: #F5EDE0;
+  --theme-sand: #D4A76A;
+  --theme-forest: #2C2418;
+  --theme-forest-card: #3A3224;
+  --theme-terracotta: #8B2D1E;
+  --theme-terracotta-dark: #6E1F13;
+  --theme-terracotta-light: #D4A5A0;
+  --theme-sage: #3B6E8A;
+  --theme-charcoal: #3D3A35;
+  --theme-gold: #D4A76A;
+  --theme-rose: #C4835A;
+  --theme-black: #1A1410;
+  --theme-black-card: #231C14;
+  --theme-border-light: rgba(44, 36, 24, 0.15);
+  --theme-border-dark: rgba(245, 237, 224, 0.2);
+  --theme-border-black: rgba(245, 237, 224, 0.12);
+  --theme-text-muted: rgba(44, 36, 24, 0.72);
+  --theme-text-muted-dark: rgba(245, 237, 224, 0.7);
+  --theme-shadow-color: 44, 36, 24;
+  --theme-font-heading: var(--font-lora, 'Lora', 'Georgia', serif);
+  --theme-font-body: var(--font-nunito, 'Nunito', system-ui, sans-serif);
+}
+
+/* --- Prairie Modern ---
+   Clean, contemporary, airy — warm but lifted.
+   Fonts: Plus Jakarta Sans (both heading and body)
+*/
+[data-theme='prairie-modern'] {
+  --theme-cream: #F7F3ED;
+  --theme-sand: #E8DFD1;
+  --theme-forest: #3D3A35;
+  --theme-forest-card: #4A4740;
+  --theme-terracotta: #C67D52;
+  --theme-terracotta-dark: #A8632F;
+  --theme-terracotta-light: #E8C4B0;
+  --theme-sage: #6B8F71;
+  --theme-charcoal: #3D3A35;
+  --theme-gold: #A8C4B8;
+  --theme-rose: #C67D52;
+  --theme-black: #111111;
+  --theme-black-card: #1A1A1A;
+  --theme-border-light: rgba(61, 58, 53, 0.15);
+  --theme-border-dark: rgba(247, 243, 237, 0.2);
+  --theme-border-black: rgba(247, 243, 237, 0.12);
+  --theme-text-muted: rgba(61, 58, 53, 0.72);
+  --theme-text-muted-dark: rgba(247, 243, 237, 0.7);
+  --theme-shadow-color: 61, 58, 53;
+  --theme-font-heading: var(--font-jakarta, 'Plus Jakarta Sans', system-ui, sans-serif);
+  --theme-font-body: var(--font-jakarta, 'Plus Jakarta Sans', system-ui, sans-serif);
+}
+
+/* --- Farmstead Blue ---
+   Confident, established — navy + gold.
+   Fonts: Playfair Display (heading) + Inter (body)
+*/
+[data-theme='farmstead-blue'] {
+  --theme-cream: #FAF6EF;
+  --theme-sand: #E8DFD1;
+  --theme-forest: #1E3A5F;
+  --theme-forest-card: #2A4A70;
+  --theme-terracotta: #D4A24E;
+  --theme-terracotta-dark: #B88A3A;
+  --theme-terracotta-light: #F0DDB5;
+  --theme-sage: #3B7BC0;
+  --theme-charcoal: #2A2520;
+  --theme-gold: #D4A24E;
+  --theme-rose: #E86F45;
+  --theme-black: #111111;
+  --theme-black-card: #1A1A1A;
+  --theme-border-light: rgba(30, 58, 95, 0.15);
+  --theme-border-dark: rgba(250, 246, 239, 0.2);
+  --theme-border-black: rgba(250, 246, 239, 0.12);
+  --theme-text-muted: rgba(30, 58, 95, 0.72);
+  --theme-text-muted-dark: rgba(250, 246, 239, 0.7);
+  --theme-shadow-color: 30, 58, 95;
+  --theme-font-heading: var(--font-playfair, 'Playfair Display', 'Georgia', serif);
+  --theme-font-body: var(--font-inter, 'Inter', system-ui, sans-serif);
+}
+
+/* ============================================================
+   TAILWIND THEME — maps token names to active theme variables
+   ============================================================ */
 @theme {
-  /* Colors */
-  --color-cream: #faf7f2;
-  --color-sand: #e8ded1;
-  --color-forest: #2d4a3e;
-  --color-forest-card: #375549;
-  --color-terracotta: #c4704b;
-  --color-terracotta-dark: #a8572e;
-  --color-terracotta-light: #e8c4b4;
-  --color-sage: #a8b5a0;
-  --color-charcoal: #3d3d3d;
-  --color-gold: #d4a853;
-  --color-rose: #d4a5a5;
+  /* Colors — resolve to whichever theme is active */
+  --color-cream: var(--theme-cream);
+  --color-sand: var(--theme-sand);
+  --color-forest: var(--theme-forest);
+  --color-forest-card: var(--theme-forest-card);
+  --color-terracotta: var(--theme-terracotta);
+  --color-terracotta-dark: var(--theme-terracotta-dark);
+  --color-terracotta-light: var(--theme-terracotta-light);
+  --color-sage: var(--theme-sage);
+  --color-charcoal: var(--theme-charcoal);
+  --color-gold: var(--theme-gold);
+  --color-rose: var(--theme-rose);
   --color-white: #ffffff;
-  --color-border-light: rgba(45, 74, 62, 0.15);
-  --color-border-dark: rgba(250, 247, 241, 0.2);
-  --color-black: #111111;
-  --color-black-card: #1a1a1a;
-  --color-border-black: rgba(250, 247, 241, 0.12);
-  --color-text-muted: rgba(45, 74, 62, 0.78);
-  --color-text-muted-dark: rgba(250, 247, 242, 0.7);
+  --color-black: var(--theme-black);
+  --color-black-card: var(--theme-black-card);
+  --color-border-light: var(--theme-border-light);
+  --color-border-dark: var(--theme-border-dark);
+  --color-border-black: var(--theme-border-black);
+  --color-text-muted: var(--theme-text-muted);
+  --color-text-muted-dark: var(--theme-text-muted-dark);
 
-  /* Font families */
-  --font-heading: 'Bricolage Grotesque', system-ui, sans-serif;
-  --font-sans: var(--font-poppins, 'Poppins', system-ui, sans-serif);
+  /* Font families — resolve to whichever theme is active */
+  --font-heading: var(--theme-font-heading);
+  --font-sans: var(--theme-font-body);
 
-  /* Font sizes — hero/heading scale (serif) */
+  /* Font sizes — hero/heading scale */
   --font-size-hero: 84px;
   --font-size-h1: 84px;
   --font-size-h2: 56px;
   --font-size-h3: 36px;
   --font-size-h4: 24px;
 
-  /* Font sizes — body scale (sans) */
+  /* Font sizes — body scale */
   --font-size-body-lg: 24px;
   --font-size-body: 20px;
   --font-size-body-sm: 16px;
@@ -58,8 +155,8 @@
   --radius-section: 48px;
 
   /* Shadows */
-  --shadow-card: 0 2px 8px rgba(45, 74, 62, 0.06);
-  --shadow-card-hover: 0 8px 24px rgba(45, 74, 62, 0.10);
+  --shadow-card: 0 2px 8px rgba(var(--theme-shadow-color), 0.06);
+  --shadow-card-hover: 0 8px 24px rgba(var(--theme-shadow-color), 0.10);
 
   --default-transition-duration: 250ms;
 }

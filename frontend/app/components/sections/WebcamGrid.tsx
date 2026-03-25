@@ -127,7 +127,7 @@ export default function WebcamGrid({block}: WebcamGridProps) {
                 </h2>
               )}
               <p className="text-charcoal/70 text-[16px] md:text-[18px] mb-8">
-                Enter the password provided by Hound Around to view our live camera feeds.
+                Enter the password provided by Home Away From Home to view our live camera feeds.
               </p>
               <form onSubmit={handleSubmit} className="flex flex-col gap-4">
                 <input

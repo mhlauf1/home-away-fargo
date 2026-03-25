@@ -1,9 +1,0 @@
-category,service,duration,price_1_dog,price_additional_dog,notes
-Daycare,Full Day,1 day,35.00,30.00,
-Daycare,Half Day (4 hours or less),1 day,27.00,25.00,
-Daycare,5 Day Package,5 days,33.00,28.00,Per day rate. Must be used within 30 days of purchase.
-Daycare,10 Day Package,10 days,32.00,27.00,Per day rate. Must be used within 30 days of purchase.
-Daycare,20 Day Package,20 days,31.00,26.00,Per day rate. Must be used within 30 days of purchase.
-Boarding,1-9 Nights,per night,55.00,50.00,Includes all day play in indoor/outdoor play areas.
-Boarding,10+ Nights,per night,50.00,45.00,Includes all day play in indoor/outdoor play areas.
-Boarding,No Show Fee,per incident,55.00,,1 night of boarding per dog.
