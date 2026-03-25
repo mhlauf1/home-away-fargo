@@ -1,0 +1,41 @@
+category,service,nights_or_days,dogs,price_base,price_with_half_day_dc
+Boarding With Tax,Boarding,1 Night,1,61.84,92.21
+Boarding With Tax,Boarding,2 Nights,1,123.69,154.04
+Boarding With Tax,Boarding,3 Nights,1,185.53,215.88
+Boarding With Tax,Boarding,4 Nights,1,247.37,277.72
+Boarding With Tax,Boarding,5 Nights,1,309.20,339.57
+Boarding With Tax,Boarding,6 Nights,1,371.05,401.41
+Boarding With Tax,Boarding,7 Nights,1,432.89,463.25
+Boarding With Tax,Boarding,8 Nights,1,494.73,525.09
+Boarding With Tax,Boarding,9 Nights,1,556.57,586.94
+Boarding With Tax,Boarding,10 Nights,1,562.20,592.55
+Boarding With Tax,Boarding,11 Nights,1,618.42,648.78
+Boarding With Tax,Boarding,12 Nights,1,674.63,704.99
+Boarding With Tax,Boarding,13 Nights,1,730.86,761.22
+Boarding With Tax,Boarding,14 Nights,1,787.07,817.43
+Boarding With Tax,Boarding,1 Night,2,118.06,176.53
+Boarding With Tax,Boarding,2 Nights,2,236.13,294.60
+Boarding With Tax,Boarding,3 Nights,2,354.18,412.65
+Boarding With Tax,Boarding,4 Nights,2,472.24,530.71
+Boarding With Tax,Boarding,5 Nights,2,590.31,648.78
+Boarding With Tax,Boarding,6 Nights,2,708.37,766.84
+Boarding With Tax,Boarding,7 Nights,2,826.42,884.89
+Boarding With Tax,Boarding,8 Nights,2,944.49,1002.96
+Boarding With Tax,Boarding,9 Nights,2,1062.55,1121.02
+Boarding With Tax,Boarding,10 Nights,2,1068.18,1126.64
+Boarding With Tax,Boarding,11 Nights,2,1174.99,1233.46
+Boarding With Tax,Boarding,12 Nights,2,1281.81,1340.27
+Boarding With Tax,Boarding,13 Nights,2,1388.62,1447.09
+Boarding With Tax,Boarding,14 Nights,2,1495.44,1553.91
+Daycare With Tax,Half Day Daycare,1 Day,1,30.36,
+Daycare With Tax,Full Day Daycare,1 Day,1,39.35,
+Daycare With Tax,Half Day Daycare,1 Day,2,58.47,
+Daycare With Tax,Full Day Daycare,1 Day,2,73.09,
+Packages With Tax,5 Day Package,5 Days,1,185.53,
+Packages With Tax,10 Day Package,10 Days,1,359.81,
+Packages With Tax,20 Day Package,20 Days,1,697.12,
+Packages With Tax,5 Day Package,5 Days,2,342.94,
+Packages With Tax,10 Day Package,10 Days,2,663.40,
+Packages With Tax,20 Day Package,20 Days,2,1281.81,
+Nail Trims With Tax,Nail Trim,1,1,19.12,
+Nail Trims With Tax,Nail Trim,1,2,38.23,

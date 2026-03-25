@@ -1,0 +1,181 @@
+import Badge from '@/app/components/ui/Badge'
+import Button from '@/app/components/ui/Button'
+import Image from '@/app/components/SanityImage'
+import {FadeIn} from '@/app/components/ui/FadeIn'
+
+type HeroProps = {
+  block: {
+    eyebrow?: string
+    heading?: string
+    subtext?: string
+    primaryCta?: {buttonText?: string; link?: any}
+    secondaryCta?: {buttonText?: string; link?: any}
+    reviewRating?: number
+    reviewText?: string
+    trustLine?: string
+    heroImage?: {asset?: {_ref: string}; crop?: any; hotspot?: any}
+  }
+  index: number
+  pageId: string
+  pageType: string
+}
+
+export default function Hero({block, index}: HeroProps) {
+  const {
+    eyebrow,
+    heading,
+    subtext,
+    primaryCta,
+    secondaryCta,
+    reviewRating,
+    reviewText,
+    trustLine,
+    heroImage,
+  } = block
+
+  const isFirst = index === 0
+  const Wrap = isFirst
+    ? ({
+        children,
+        className,
+      }: {
+        children: React.ReactNode
+        className?: string
+        delay?: number
+        direction?: string
+      }) => <div className={className}>{children}</div>
+    : FadeIn
+
+  return (
+    <section className="relative pb-8 md:pb-0 pt-18 bg-cream overflow-x-clip">
+      {/* Left dog illustration */}
+      <img
+        src="/illustrations/hero-left-dog.png"
+        alt=""
+        aria-hidden="true"
+        loading="lazy"
+        className="absolute left-1/12 top-1/3 w-[80px] lg:w-section-lg pointer-events-none hidden lg:block"
+      />
+
+      {/* Right dog illustration */}
+      <img
+        src="/illustrations/hero-right-image.png"
+        alt=""
+        aria-hidden="true"
+        loading="lazy"
+        className="absolute right-1/8 bottom-1/4 w-15 lg:w-[80px] pointer-events-none hidden lg:block"
+      />
+
+      <div className="container relative z-10 pt-20 pb-4 lg:pt-[12vh] lg:pb-12">
+        <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
+          {eyebrow && (
+            <Wrap>
+              <Badge className="mb-5 md:mb-6">{eyebrow}</Badge>
+            </Wrap>
+          )}
+
+          {heading && (
+            <Wrap delay={0.1}>
+              <h1 className="text-[48px] md:text-[56px] lg:text-[84px] leading-[104%] tracking-tight font-semibold mb-5">
+                {heading}
+              </h1>
+            </Wrap>
+          )}
+
+          {subtext && (
+            <Wrap delay={0.2}>
+              <p className="font-sans md:text-base lg:text-lg text-text-muted leading-[150%] max-w-xl mb-6">
+                {subtext}
+              </p>
+            </Wrap>
+          )}
+
+          <Wrap delay={0.25}>
+            <div className="flex items-center justify-center gap-2 md:gap-3 mb-6">
+              {[
+                {label: 'Boarding', href: '/services/boarding'},
+                {label: 'Daycare', href: '/services/daycare'},
+                {label: 'Grooming', href: '/services/grooming'},
+              ].map((service) => (
+                <a
+                  key={service.label}
+                  href={service.href}
+                  className="bg-forest text-white font-sans text-[13px] md:text-[14px] font-medium tracking-wide px-5 py-2.5 rounded-lg hover:bg-forest/90 transition-colors"
+                >
+                  {service.label}
+                </a>
+              ))}
+            </div>
+          </Wrap>
+
+          <Wrap className="w-full md:w-auto" delay={0.35}>
+            <div className="flex flex-col w-full md:flex-row items-center gap-2 md:gap-3 mb-3 md:mb-4">
+              {primaryCta?.buttonText && (
+                <Button variant="primary" link={primaryCta.link}>
+                  {primaryCta.buttonText}
+                </Button>
+              )}
+              {secondaryCta?.buttonText && (
+                <Button variant="outline" link={secondaryCta.link}>
+                  {secondaryCta.buttonText}
+                </Button>
+              )}
+            </div>
+          </Wrap>
+
+          {reviewRating && (
+            <Wrap delay={0.35}>
+              <div className="flex flex-col mt-3 items-center gap-1">
+                <div className="flex items-center gap-2">
+                  <div className="flex gap-0.5">
+                    {Array.from({length: 5}).map((_, i) => (
+                      <svg
+                        key={i}
+                        className={`w-4 h-4 ${i < reviewRating ? 'text-terracotta' : 'text-terracotta/25'}`}
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                      </svg>
+                    ))}
+                  </div>
+                  {reviewText && <p className="font-sans text-sm text-text-muted">{reviewText}</p>}
+                </div>
+                {trustLine && <p className="font-sans text-xs text-text-muted">{trustLine}</p>}
+              </div>
+            </Wrap>
+          )}
+        </div>
+
+        {heroImage?.asset?._ref &&
+          (isFirst ? (
+            <div className="mt-10 lg:mt-16 max-w-4xl mx-auto">
+              <Image
+                id={heroImage.asset._ref}
+                alt="Hero image"
+                width={960}
+                crop={heroImage.crop}
+                className="rounded-xl w-full object-cover"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 960px"
+                loading="eager"
+                fetchPriority="high"
+              />
+            </div>
+          ) : (
+            <FadeIn delay={0.5}>
+              <div className="mt-10 lg:mt-16 max-w-4xl mx-auto">
+                <Image
+                  id={heroImage.asset._ref}
+                  alt="Hero image"
+                  width={960}
+                  crop={heroImage.crop}
+                  className="rounded-xl w-full object-cover"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 960px"
+                />
+              </div>
+            </FadeIn>
+          ))}
+      </div>
+    </section>
+  )
+}

@@ -1,0 +1,147 @@
+@import 'tailwindcss';
+
+@plugin "@tailwindcss/typography";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  /* Colors */
+  --color-cream: #faf7f2;
+  --color-sand: #e8ded1;
+  --color-forest: #2d4a3e;
+  --color-forest-card: #375549;
+  --color-terracotta: #c4704b;
+  --color-terracotta-dark: #a8572e;
+  --color-terracotta-light: #e8c4b4;
+  --color-sage: #a8b5a0;
+  --color-charcoal: #3d3d3d;
+  --color-gold: #d4a853;
+  --color-rose: #d4a5a5;
+  --color-white: #ffffff;
+  --color-border-light: rgba(45, 74, 62, 0.15);
+  --color-border-dark: rgba(250, 247, 241, 0.2);
+  --color-black: #111111;
+  --color-black-card: #1a1a1a;
+  --color-border-black: rgba(250, 247, 241, 0.12);
+  --color-text-muted: rgba(45, 74, 62, 0.78);
+  --color-text-muted-dark: rgba(250, 247, 242, 0.7);
+
+  /* Font families */
+  --font-heading: 'Bricolage Grotesque', system-ui, sans-serif;
+  --font-sans: var(--font-poppins, 'Poppins', system-ui, sans-serif);
+
+  /* Font sizes — hero/heading scale (serif) */
+  --font-size-hero: 84px;
+  --font-size-h1: 84px;
+  --font-size-h2: 56px;
+  --font-size-h3: 36px;
+  --font-size-h4: 24px;
+
+  /* Font sizes — body scale (sans) */
+  --font-size-body-lg: 24px;
+  --font-size-body: 20px;
+  --font-size-body-sm: 16px;
+  --font-size-caption: 14px;
+  --font-size-badge: 14px;
+  --font-size-stat: 48px;
+  --font-size-button: 16px;
+
+  /* Spacing */
+  --spacing-section: 80px;
+  --spacing-section-lg: 120px;
+
+  /* Border radius */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 24px;
+  --radius-xl: 40px;
+  --radius-section: 48px;
+
+  /* Shadows */
+  --shadow-card: 0 2px 8px rgba(45, 74, 62, 0.06);
+  --shadow-card-hover: 0 8px 24px rgba(45, 74, 62, 0.10);
+
+  --default-transition-duration: 250ms;
+}
+
+@layer base {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    font-weight: 400;
+    line-height: 1.5;
+  }
+}
+
+@utility container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+@utility animate-progress {
+  animation: progress 7s linear forwards;
+}
+
+@keyframes progress {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@utility animate-fade-in {
+  animation: fade-in 0.4s ease-out;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@utility animate-marquee {
+  animation: marquee 30s linear infinite;
+}
+
+@utility animate-ticker {
+  animation: marquee 18s linear infinite;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Pricing calculator focus styles on dark backgrounds */
+@layer base {
+  .bg-forest button:focus-visible,
+  .bg-forest label:focus-visible,
+  .bg-forest [role="radio"]:focus-visible {
+    outline: 2px solid var(--color-terracotta);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+}
