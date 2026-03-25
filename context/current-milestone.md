@@ -1,26 +1,36 @@
 # Current Milestone
 
-## Milestone 1: Foundation & Theme System
+## Milestone 2: Sanity Schema & Content Seeding
 
 ### Status
 Not Started
 
 ### Goals
-- Strip all Hound Around-specific content, images, and references from the cloned codebase
-- Set up new Sanity project/dataset and connect it
-- Implement the three-theme CSS custom property system (Hearthstone, Prairie Modern, Farmstead Blue)
-- Load all three font pairings via Google Fonts
-- Build the dev-only floating theme toggle widget
-- Swap the logo to HAFH logo
-- Update all meta tags, site title, favicon, OG images for HAFH
-- Update `.env` / `.env.example` with HAFH-specific values
-- Verify clean Vercel deployment with theme switching working
+- Review existing Sanity schemas (copied from Hound Around) and verify they work for HAFH
+- Add new schema types if needed (cat services, grooming team bios)
+- Seed all "have now" content into Sanity:
+  - Facility info (name, address, phone, email, hours, holidays)
+  - All pricing data (daycare packages, boarding runs, cat services, grooming, exit baths)
+  - Service descriptions (daycare, boarding, grooming, cat boarding)
+  - FAQs (4 provided)
+  - Testimonials (6 provided)
+  - Booking info (Gingr app, invite code 393992)
+  - Grooming manager credentials (Sheryl Wagner)
+- Upload available photos to Sanity media library
+- Verify all GROQ queries return correct data
 
 ### Notes
-- This codebase was cloned from Hound Around Resort — see @context/project-overview.md for codebase origin rules
-- Theme token architecture details are in @context/coding-standards.md under "Theme token system"
-- Do a thorough grep for "Hound Around", "Cottage Grove", "houndaroundresort", and any Hound Around-specific content before considering this milestone done
-- The three theme palettes and font pairings are defined in @context/project-overview.md under "Design System"
+- Content data is documented in @context/project-overview.md under "Content Status" and "Facility Quick Reference"
+- Sanity project ID: `dafhmkyq`, dataset: `production`
+- Schemas live in `studio/src/schemaTypes/`
+- GROQ queries live in `frontend/sanity/lib/queries.ts`
+- The page builder architecture means content is structured as pageBuilder arrays on page/service documents
+- Keep schemas structurally aligned with Hound Around for future template extraction
+
+### Definition of Done
+- Sanity Studio loads with all seeded content
+- All content renders on the site through GROQ queries
+- No hardcoded content in components — everything from Sanity
 
 ### History
 (No updates yet)

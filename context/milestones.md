@@ -8,8 +8,8 @@ The HAFH website is built in milestones, not features. Each milestone represents
 
 ## Milestone 1: Foundation & Theme System
 
-**Status:** Not Started
-**Branch:** `feature/foundation`
+**Status:** Complete (2026-03-24)
+**Branch:** `feature/foundation` (merged to main)
 
 ### Goals
 - Strip all Hound Around-specific content, images, and references from the cloned codebase
@@ -147,4 +147,12 @@ The HAFH website is built in milestones, not features. Each milestone represents
 
 ## Completed Milestones
 
-(None yet)
+### Milestone 1: Foundation & Theme System (2026-03-24)
+- Stripped all Hound Around references (17 replacements across 12 files)
+- Connected HAFH Sanity project (`dafhmkyq`) with frontend and studio env files
+- Built three-theme CSS custom property system (Hearthstone, Prairie Modern, Farmstead Blue)
+- Loaded all font pairs: Lora/Nunito, Plus Jakarta Sans, Playfair Display/Inter
+- Built dev-only ThemeToggle widget with `?theme=` URL param and localStorage
+- Removed redundant Tailwind v3 JS config
+- Deleted Hound Around docs, design images, and pricing CSVs
+- Build passes, all pages render, theme switching works
