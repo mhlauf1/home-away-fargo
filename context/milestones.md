@@ -32,8 +32,8 @@ The HAFH website is built in milestones, not features. Each milestone represents
 
 ## Milestone 2: Sanity Schema & Content Seeding
 
-**Status:** Not Started
-**Branch:** `content/sanity-seed`
+**Status:** Complete (2026-03-24)
+**Branch:** `content/sanity-seed` (merged to main)
 
 ### Goals
 - Copy Sanity schemas from Hound Around
@@ -58,8 +58,8 @@ The HAFH website is built in milestones, not features. Each milestone represents
 
 ## Milestone 3: Core Pages — Homepage & Services
 
-**Status:** Not Started
-**Branch:** `feature/core-pages`
+**Status:** Complete (2026-03-25)
+**Branch:** `feature/core-pages` (merged to main)
 
 ### Goals
 - Homepage: hero, services overview, stats counter, photo scroll, testimonials, CTA
@@ -146,6 +146,22 @@ The HAFH website is built in milestones, not features. Each milestone represents
 ---
 
 ## Completed Milestones
+
+### Milestone 3: Core Pages — Homepage & Services (2026-03-25)
+- Populated homepage pageBuilder: hero, service cards (4), stats bar, testimonials (6), CTA banner
+- Populated daycare page: hero, feature cards (4), pricing calculator, FAQ accordion (3), CTA banner
+- Populated boarding page: hero, feature cards (4), requirements list (4), pricing calculator, FAQ accordion (3), CTA banner
+- Populated grooming page: hero, feature cards (4), team grid (Sheryl Wagner), pricing calculator, CTA banner
+- Populated cat services page: hero, feature cards (4), requirements list (4), CTA banner
+- All content seeded via Sanity MCP tools and published
+- Build passes, all pages render with content across all three themes
+
+### Milestone 2: Sanity Schema & Content Seeding (2026-03-24)
+- Schema reviewed — no changes needed from Hound Around
+- Fixed 3 hardcoded Hound Around phone numbers (651-788-9797 → 701-532-1618)
+- Rewrote pricing calculator data + UI for HAFH pricing model
+- Seeded all Sanity content (settings, 6 testimonials, 4 services, 7 pages)
+- Deployed schema to cloud, published all documents
 
 ### Milestone 1: Foundation & Theme System (2026-03-24)
 - Stripped all Hound Around references (17 replacements across 12 files)
