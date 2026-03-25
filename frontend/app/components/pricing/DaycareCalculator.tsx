@@ -3,7 +3,7 @@
 import {useState, useMemo, useCallback} from 'react'
 import {NumberStepper, RadioGroup, AddDogButton, ContactNotice} from './CalculatorInputs'
 import PriceOutputCard from './PriceOutputCard'
-import {calculateDaycarePerDog} from '@/app/data/pricingData'
+import {calculateDaycarePerDog, daycarePackages} from '@/app/data/pricingData'
 import type {DayType, DaycarePackage, DaycareDogConfig} from '@/app/data/pricingData'
 import type {DereferencedLink} from '@/sanity/lib/types'
 
@@ -52,7 +52,7 @@ export default function DaycareCalculator({ctaText, ctaLink, taxNote}: DaycareCa
           total={0}
           lineItems={[]}
           ctaText="Call Us"
-          ctaLink={{_type: 'link', linkType: 'href', href: 'tel:6517889797'}}
+          ctaLink={{_type: 'link', linkType: 'href', href: 'tel:7015321618'}}
           taxNote={taxNote}
           disabled
           disabledMessage="Please call for custom pricing for 4+ dogs."
@@ -107,6 +107,8 @@ type DaycareDogCardProps = {
 }
 
 function DaycareDogCard({dog, index, total, onUpdate, onRemove}: DaycareDogCardProps) {
+  const meta = daycarePackages[dog.pkg]
+
   return (
     <div className="bg-forest-card border border-border-dark rounded-lg p-4 space-y-4">
       <div className="flex items-center justify-between">
@@ -128,7 +130,7 @@ function DaycareDogCard({dog, index, total, onUpdate, onRemove}: DaycareDogCardP
         label="Day Type"
         options={[
           {label: 'Full Day', value: 'full'},
-          {label: 'Half Day (4 hrs)', value: 'half'},
+          {label: 'Half Day', value: 'half'},
         ]}
         value={dog.dayType}
         onChange={(v) => onUpdate({dayType: v as DayType})}
@@ -136,12 +138,11 @@ function DaycareDogCard({dog, index, total, onUpdate, onRemove}: DaycareDogCardP
 
       <RadioGroup
         label="Package"
-        options={[
-          {label: 'Single Days', value: 'single'},
-          {label: '5-Day Package', value: '5-day'},
-          {label: '10-Day Package', value: '10-day'},
-          {label: '20-Day Package', value: '20-day'},
-        ]}
+        options={Object.entries(daycarePackages).map(([value, pkg]) => ({
+          label: pkg.label,
+          value,
+          description: pkg.badge ? `${pkg.badge}${pkg.validity ? ` · Valid ${pkg.validity}` : ''}` : pkg.validity ? `Valid ${pkg.validity}` : undefined,
+        }))}
         value={dog.pkg}
         onChange={(v) => onUpdate({pkg: v as DaycarePackage})}
       />
@@ -154,6 +155,10 @@ function DaycareDogCard({dog, index, total, onUpdate, onRemove}: DaycareDogCardP
           max={30}
           onChange={(v) => onUpdate({days: v})}
         />
+      )}
+
+      {meta.note && (
+        <p className="font-sans text-[12px] text-cream/50 italic">{meta.note}</p>
       )}
     </div>
   )

@@ -1,24 +1,10 @@
 'use client'
 
 import {useState, useMemo, useCallback} from 'react'
-import {ModeToggle, DogCard, AddDogButton, RadioGroup, CheckboxGroup} from './CalculatorInputs'
+import {AddDogButton, RadioGroup} from './CalculatorInputs'
 import PriceOutputCard from './PriceOutputCard'
-import {
-  calculateGroomingFullService,
-  calculateGroomingAlaCarte,
-  getAvailableSizes,
-  isHairTypeRelevant,
-  groomingAddOnOptions,
-  sizeLabels,
-  serviceLabels,
-} from '@/app/data/pricingData'
-import type {
-  GroomingService,
-  DogSize,
-  GroomingAddOn,
-  GroomingMode,
-  DogConfig,
-} from '@/app/data/pricingData'
+import {calculateGrooming, sizeLabels, serviceLabels} from '@/app/data/pricingData'
+import type {GroomingService, DogSize, DogConfig} from '@/app/data/pricingData'
 import type {DereferencedLink} from '@/sanity/lib/types'
 
 type GroomingCalculatorProps = {
@@ -27,40 +13,20 @@ type GroomingCalculatorProps = {
   taxNote?: string
 }
 
+const availableSizes: DogSize[] = ['s', 'm', 'l', 'xl']
+
 let dogIdCounter = 1
 
 function createDog(size: DogSize = 'm'): DogConfig {
-  return {id: String(dogIdCounter++), size, hairType: 'short'}
+  return {id: String(dogIdCounter++), size}
 }
 
 export default function GroomingCalculator({ctaText, ctaLink, taxNote}: GroomingCalculatorProps) {
-  const [mode, setMode] = useState<GroomingMode>('fullService')
   const [dogs, setDogs] = useState<DogConfig[]>(() => [createDog()])
-  const [service, setService] = useState<GroomingService>('fullBath')
-  const [selectedItems, setSelectedItems] = useState<GroomingAddOn[]>([])
+  const [service, setService] = useState<GroomingService>('exitBath')
 
-  const availableSizes = useMemo(() => getAvailableSizes(service), [service])
-  const showHairType = isHairTypeRelevant(service)
-
-  const handleServiceChange = useCallback(
-    (v: string) => {
-      const newService = v as GroomingService
-      setService(newService)
-      const newSizes = getAvailableSizes(newService)
-      setDogs((prev) =>
-        prev.map((dog) => {
-          if (!newSizes.includes(dog.size)) {
-            return {...dog, size: newSizes[0]}
-          }
-          return dog
-        }),
-      )
-    },
-    [],
-  )
-
-  const handleUpdateDog = useCallback((index: number, updated: DogConfig) => {
-    setDogs((prev) => prev.map((d, i) => (i === index ? updated : d)))
+  const handleUpdateDog = useCallback((index: number, size: DogSize) => {
+    setDogs((prev) => prev.map((d, i) => (i === index ? {...d, size} : d)))
   }, [])
 
   const handleRemoveDog = useCallback((index: number) => {
@@ -74,39 +40,21 @@ export default function GroomingCalculator({ctaText, ctaLink, taxNote}: Grooming
     })
   }, [])
 
-  const fullServiceResult = useMemo(
-    () => calculateGroomingFullService({service, dogs}),
+  const result = useMemo(
+    () => calculateGrooming({service, dogs}),
     [service, dogs],
   )
-
-  const alaCarteResult = useMemo(
-    () => calculateGroomingAlaCarte({dogs, selectedItems}),
-    [dogs, selectedItems],
-  )
-
-  const isFullService = mode === 'fullService'
-  const total = isFullService ? fullServiceResult.total : alaCarteResult.total
-  const lineItems = isFullService ? fullServiceResult.lineItems : alaCarteResult.lineItems
-  const isUnavailable = isFullService ? fullServiceResult.isUnavailable : false
-  const unavailableMessage = isFullService ? fullServiceResult.unavailableMessage : null
-  const includes = isFullService ? fullServiceResult.includes : undefined
-  const timeEstimate = isFullService ? fullServiceResult.timeEstimate : undefined
-  const emptyAlaCarte = !isFullService && selectedItems.length === 0
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 items-start">
       {/* Inputs */}
       <div className="space-y-6">
-        <ModeToggle mode={mode} onChange={setMode} />
-
-        {isFullService && (
-          <RadioGroup
-            label="Service Type"
-            options={Object.entries(serviceLabels).map(([value, label]) => ({label, value}))}
-            value={service}
-            onChange={handleServiceChange}
-          />
-        )}
+        <RadioGroup
+          label="Service Type"
+          options={Object.entries(serviceLabels).map(([value, label]) => ({label, value}))}
+          value={service}
+          onChange={(v) => setService(v as GroomingService)}
+        />
 
         {/* Dog Cards */}
         <div className="space-y-3">
@@ -114,55 +62,90 @@ export default function GroomingCalculator({ctaText, ctaLink, taxNote}: Grooming
             {dogs.length > 1 ? 'Your Dogs' : 'Your Dog'}
           </span>
           {dogs.map((dog, i) => (
-            <DogCard
+            <GroomingDogCard
               key={dog.id}
               dog={dog}
               index={i}
               total={dogs.length}
-              showHairType={isFullService ? showHairType : false}
-              availableSizes={isFullService ? availableSizes : (['xs', 's', 'm', 'l', 'xl'] as DogSize[])}
-              onUpdate={(updated) => handleUpdateDog(i, updated)}
+              availableSizes={availableSizes}
+              onUpdate={(size) => handleUpdateDog(i, size)}
               onRemove={() => handleRemoveDog(i)}
             />
           ))}
           {dogs.length < 3 && <AddDogButton onClick={handleAddDog} />}
         </div>
 
-        {!isFullService && (
-          <CheckboxGroup
-            label="Services"
-            options={groomingAddOnOptions.map((a) => {
-              const hasLargeDog = dogs.some((d) => d.size === 'l' || d.size === 'xl')
-              const price = hasLargeDog && a.priceL ? `$${a.priceL}` : `$${a.price}`
-              const allSameSize = dogs.every((d) => d.size === dogs[0].size)
-              const showRange = !allSameSize && a.priceL
-              const priceStr = showRange ? `$${a.price}–$${a.priceL}` : price
-              const detail = a.note ? `${priceStr} (${a.note})` : priceStr
-              return {
-                id: a.id,
-                label: a.label,
-                detail,
-              }
-            })}
-            selected={selectedItems}
-            onChange={(selected) => setSelectedItems(selected as GroomingAddOn[])}
-          />
+        {result.isStartingAt && (
+          <p className="font-sans text-[12px] text-cream/50 italic">
+            Final pricing determined by coat density, coat condition, and grooming time.
+          </p>
         )}
       </div>
 
       {/* Output */}
       <PriceOutputCard
-        total={total}
-        lineItems={lineItems}
+        total={result.total}
+        lineItems={result.lineItems}
         ctaText={ctaText}
         ctaLink={ctaLink}
         taxNote={taxNote}
-        disabled={isUnavailable}
-        disabledMessage={unavailableMessage}
-        includes={includes}
-        timeEstimate={timeEstimate}
-        emptyMessage={emptyAlaCarte ? 'Select services above to see pricing.' : undefined}
+        includes={result.includes.length > 0 ? result.includes : undefined}
+        badge={result.isStartingAt ? 'Starting at' : null}
       />
+    </div>
+  )
+}
+
+// ─── Grooming Dog Card ──────────────────────────────────────
+type GroomingDogCardProps = {
+  dog: DogConfig
+  index: number
+  total: number
+  availableSizes: DogSize[]
+  onUpdate: (size: DogSize) => void
+  onRemove: () => void
+}
+
+function GroomingDogCard({dog, index, total, availableSizes: sizes, onUpdate, onRemove}: GroomingDogCardProps) {
+  return (
+    <div className="bg-forest-card border border-border-dark rounded-lg p-4 space-y-4">
+      <div className="flex items-center justify-between">
+        <span className="font-sans text-[14px] font-medium text-cream">
+          {total > 1 ? `Dog ${index + 1}` : 'Your Dog'}
+        </span>
+        {total > 1 && (
+          <button
+            type="button"
+            onClick={onRemove}
+            className="font-sans text-[12px] text-cream/40 hover:text-terracotta-light transition-colors"
+          >
+            Remove
+          </button>
+        )}
+      </div>
+
+      {/* Size */}
+      <div>
+        <span className="block text-cream/70 font-sans text-[12px] font-medium uppercase tracking-wider mb-1.5">
+          Size
+        </span>
+        <div className="flex flex-wrap gap-1.5">
+          {sizes.map((s) => (
+            <button
+              key={s}
+              type="button"
+              onClick={() => onUpdate(s)}
+              className={`font-sans text-[13px] font-medium px-3 py-1.5 rounded-full border transition-all ${
+                dog.size === s
+                  ? 'bg-terracotta text-white border-terracotta'
+                  : 'bg-transparent text-cream/70 border-border-dark hover:border-cream/40 hover:text-cream'
+              }`}
+            >
+              {sizeLabels[s]}
+            </button>
+          ))}
+        </div>
+      </div>
     </div>
   )
 }

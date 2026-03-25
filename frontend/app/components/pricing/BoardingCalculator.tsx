@@ -1,10 +1,10 @@
 'use client'
 
 import {useState, useMemo, useCallback} from 'react'
-import {NumberStepper, CheckboxGroup, AddDogButton, ContactNotice} from './CalculatorInputs'
+import {NumberStepper, RadioGroup, AddDogButton, ContactNotice} from './CalculatorInputs'
 import PriceOutputCard from './PriceOutputCard'
-import {calculateBoardingPerDog, boardingAddOnOptions} from '@/app/data/pricingData'
-import type {BoardingAddOn, BoardingDogConfig} from '@/app/data/pricingData'
+import {calculateBoardingPerDog, boardingRooms} from '@/app/data/pricingData'
+import type {RoomType, BoardingDogConfig} from '@/app/data/pricingData'
 import type {DereferencedLink} from '@/sanity/lib/types'
 
 type BoardingCalculatorProps = {
@@ -16,7 +16,7 @@ type BoardingCalculatorProps = {
 let dogIdCounter = 1
 
 function createDog(): BoardingDogConfig {
-  return {id: String(dogIdCounter++), nights: 1, addOns: []}
+  return {id: String(dogIdCounter++), nights: 1, roomType: 'regular'}
 }
 
 export default function BoardingCalculator({ctaText, ctaLink, taxNote}: BoardingCalculatorProps) {
@@ -52,7 +52,7 @@ export default function BoardingCalculator({ctaText, ctaLink, taxNote}: Boarding
           total={0}
           lineItems={[]}
           ctaText="Call Us"
-          ctaLink={{_type: 'link', linkType: 'href', href: 'tel:6517889797'}}
+          ctaLink={{_type: 'link', linkType: 'href', href: 'tel:7015321618'}}
           taxNote={taxNote}
           disabled
           disabledMessage="Please call for custom pricing for 4+ dogs."
@@ -75,6 +75,7 @@ export default function BoardingCalculator({ctaText, ctaLink, taxNote}: Boarding
               dog={dog}
               index={i}
               total={dogs.length}
+              isAdditional={i > 0}
               onUpdate={(updates) => handleUpdateDog(i, updates)}
               onRemove={() => handleRemoveDog(i)}
             />
@@ -91,7 +92,6 @@ export default function BoardingCalculator({ctaText, ctaLink, taxNote}: Boarding
         ctaLink={ctaLink}
         taxNote={taxNote}
         includes={result.includes}
-        badge={result.isExtendedStay ? 'Extended Stay' : null}
       />
     </div>
   )
@@ -102,18 +102,22 @@ type BoardingDogCardProps = {
   dog: BoardingDogConfig
   index: number
   total: number
+  isAdditional: boolean
   onUpdate: (updates: Partial<BoardingDogConfig>) => void
   onRemove: () => void
 }
 
-function BoardingDogCard({dog, index, total, onUpdate, onRemove}: BoardingDogCardProps) {
-  const isExtended = dog.nights >= 10
+function BoardingDogCard({dog, index, total, isAdditional, onUpdate, onRemove}: BoardingDogCardProps) {
+  const room = boardingRooms[dog.roomType]
 
   return (
     <div className="bg-forest-card border border-border-dark rounded-lg p-4 space-y-4">
       <div className="flex items-center justify-between">
         <span className="font-sans text-[14px] font-medium text-cream">
           {total > 1 ? `Dog ${index + 1}` : 'Your Dog'}
+          {isAdditional && (
+            <span className="text-cream/50 text-[12px] ml-2">($29/night)</span>
+          )}
         </span>
         {total > 1 && (
           <button
@@ -126,25 +130,30 @@ function BoardingDogCard({dog, index, total, onUpdate, onRemove}: BoardingDogCar
         )}
       </div>
 
+      {!isAdditional && (
+        <RadioGroup
+          label="Room Type"
+          options={Object.entries(boardingRooms).map(([value, meta]) => ({
+            label: `${meta.label} — $${meta.rate}/night`,
+            value,
+            description: meta.description,
+          }))}
+          value={dog.roomType}
+          onChange={(v) => onUpdate({roomType: v as RoomType})}
+        />
+      )}
+
       <NumberStepper
         label="Nights"
         value={dog.nights}
         min={1}
         max={30}
         onChange={(v) => onUpdate({nights: v})}
-        badge={isExtended ? 'Extended stay rate!' : null}
       />
 
-      <CheckboxGroup
-        label="Add-Ons"
-        options={boardingAddOnOptions.map((a) => ({
-          id: a.id,
-          label: a.label,
-          detail: `$${a.perDay}/day`,
-        }))}
-        selected={dog.addOns}
-        onChange={(selected) => onUpdate({addOns: selected as BoardingAddOn[]})}
-      />
+      {!isAdditional && room.note && (
+        <p className="font-sans text-[12px] text-cream/50 italic">{room.note}</p>
+      )}
     </div>
   )
 }

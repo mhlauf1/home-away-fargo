@@ -3,7 +3,7 @@
 ## Milestone 2: Sanity Schema & Content Seeding
 
 ### Status
-Not Started
+In Progress
 
 ### Goals
 - Review existing Sanity schemas (copied from Hound Around) and verify they work for HAFH
@@ -20,7 +20,7 @@ Not Started
 - Verify all GROQ queries return correct data
 
 ### Notes
-- Content data is documented in @context/project-overview.md under "Content Status" and "Facility Quick Reference"
+- Content data is documented in @context/intake-content.md (full intake form)
 - Sanity project ID: `dafhmkyq`, dataset: `production`
 - Schemas live in `studio/src/schemaTypes/`
 - GROQ queries live in `frontend/sanity/lib/queries.ts`
@@ -33,4 +33,9 @@ Not Started
 - No hardcoded content in components — everything from Sanity
 
 ### History
-(No updates yet)
+- 2026-03-24: Schema reviewed — no changes needed
+- 2026-03-24: Fixed 3 hardcoded Hound Around phone numbers (651-788-9797 → 701-532-1618)
+- 2026-03-24: Rewrote pricing calculator data + UI for HAFH pricing model
+- 2026-03-24: Seeded all Sanity content (settings, 6 testimonials, 4 services, 7 pages)
+- 2026-03-24: Deployed schema to cloud, published all documents
+- 2026-03-24: Updated context docs (sanity-schema.md, intake-content.md)

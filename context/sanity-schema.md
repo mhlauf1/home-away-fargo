@@ -4,57 +4,91 @@
 
 ## Status
 
-Schema not yet set up. Will be copied from Hound Around Resort and modified for HAFH.
+Schema set up and deployed. Copied from Hound Around Resort — no HAFH-specific modifications needed.
 
 ## Sanity Project Details
 
-- **Project ID:** (TBD — will be set up during Milestone 1)
+- **Project ID:** `dafhmkyq`
 - **Dataset:** `production`
-- **Studio URL:** (TBD)
-- **API version:** `2024-01-01` (or latest stable)
+- **Studio URL:** `http://localhost:3333` (dev) / embedded at `/studio` in frontend
+- **API version:** `2025-09-25`
 
-## Expected Document Types
+## Architecture
 
-Based on the Hound Around schema, the following document types are expected. Update this section once schemas are in place.
+This is a **page builder** architecture. Pages and services have a `pageBuilder` array field that accepts 40+ block types. There are no standalone `pricingTier` or `faq` documents — pricing, FAQs, team members, and feature cards are all inline arrays within pageBuilder blocks.
 
-### From Hound Around (copy directly)
-- `siteSettings` — Global site config (name, logo, contact info, social links, hours)
-- `servicePage` — Service page content (hero, description, features, CTA)
-- `pricingTier` — Individual pricing items (name, price, description, category)
-- `faq` — FAQ items (question, answer, associated service)
-- `testimonial` — Customer reviews (quote, author name, rating, service type)
-- `galleryImage` — Gallery photos (image, caption, category)
-- `page` — Generic page content (about, new clients, etc.)
+The only standalone reference documents are `testimonial` and `webcam`.
 
-### New for HAFH (may need to add)
-- `teamMember` — Staff bios (name, role, photo, credentials, bio text) — for grooming team section
-- `catService` — Cat-specific service content (if cat services get their own page)
+## Document Types
 
-### Object Types (reusable)
-- `portableText` — Rich text with block content
-- `imageWithAlt` — Image with alt text and optional caption
-- `cta` — Call-to-action (label, link, style variant)
-- `facilityStat` — Stat counter item (number, label, suffix)
+### `settings` (singleton)
+Global site config: title, tagline, logo, nav items, CTA button, footer columns, contact info, social links, business hours, SEO (OG image, favicon, GA4, GTM, GSC), local business structured data.
+
+### `page`
+Generic pages (homepage, pricing, gallery, about, new-clients, contact, webcams). Fields: name, slug, seo, pageBuilder (44 block types).
+
+### `service`
+Service detail pages (daycare, boarding, grooming, cats). Fields: title, slug, sticker, shortDescription, tabImage, tabCta, heading, seo, pageBuilder (37 block types).
+
+### `testimonial`
+Customer reviews. Fields: quote, authorName, authorLabel, rating (1-5, default 5).
+
+### `webcam`
+Live webcam config. Fields: name, cameraId, group (indoor/outdoor), sortOrder, enabled.
+
+## Key Object Types (PageBuilder Blocks)
+
+- `hero` / `heroSplit` / `heroBanner` / `heroMinimal` — Hero sections
+- `featureCards` / `featureGrid` / `featureList` — Feature displays
+- `pricingTable` / `pricingList` / `pricingMatrix` / `pricingCalculator` / `pricingPageTabs` — Pricing
+- `faqAccordion` — Inline Q&A (not standalone documents)
+- `testimonials` — References `testimonial` documents
+- `teamGrid` — Inline team members (name, role, bio, certifications, image)
+- `serviceTabs` / `serviceCards` — Service displays (reference `service` documents)
+- `contactForm` — Dynamic form builder
+- `galleryGrid` / `galleryCarousel` / `galleryShowcase` / `galleryPage` — Gallery
+- `processSteps` / `whatsIncluded` / `requirementsList` — Lists/timelines
+- `splitContent` / `contentColumns` — Content layouts
+- `callToAction` / `ctaBanner` / `ctaStrip` — CTAs
+- `statsBar` — Stats counter
+- `webcamPreview` / `webcamGrid` — Webcam displays
+- `iconGrid` / `valuePillars` / `logoBar` — Misc
+
+## Reusable Object Types
+
+- `link` — Flexible link (internal page/service reference or external URL)
+- `button` — Button with text + link
+- `blockContent` — Rich text (Portable Text)
+- `blockContentTextOnly` — Text-only rich text
+- `seo` — Per-page SEO overrides (metaTitle, metaDescription, ogImage, noIndex)
 
 ## GROQ Query Patterns
 
-All queries should follow the Hound Around pattern and live in `src/lib/sanity/queries.ts`.
+All queries live in `frontend/sanity/lib/queries.ts`.
 
 ```groq
-// Example: Get all pricing tiers for a service category
-*[_type == "pricingTier" && category == $category] | order(sortOrder asc) {
-  _id,
-  name,
-  price,
-  description,
-  perVisitPrice,
-  validityPeriod,
-  isPopular
-}
+// Homepage
+*[_type == 'page' && slug.current == 'homepage'][0]{ ... }
+
+// Page by slug
+*[_type == 'page' && slug.current == $slug][0]{ ... }
+
+// Service by slug
+*[_type == 'service' && slug.current == $slug][0]{ ... }
+
+// Settings (singleton)
+*[_type == 'settings'][0]{ ... }
+
+// Services for nav
+*[_type == 'service']{ title, "slug": slug.current }
 ```
+
+## Pricing Calculator
+
+The pricing calculator (`pricingCalculator` block type) has a `calculatorType` field (`daycare` | `boarding` | `grooming`) and supports `single` or `tabbed` display mode. **Actual pricing data is hardcoded in `frontend/app/data/pricingData.ts`**, not in Sanity. The Sanity block only configures which calculator to show and the CTA link.
 
 ## Notes
 
 - Keep schemas structurally aligned with Hound Around for future multi-site template extraction
 - Don't add fields you don't need yet — only add what the current content requires
-- If you need to rename a field from Hound Around's schema, document the mapping here so the template extraction knows about it
+- Schema deployed to cloud via `npx sanity@5.1.0 schema deploy` from `studio/` directory

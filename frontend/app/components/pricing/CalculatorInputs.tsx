@@ -1,122 +1,5 @@
 'use client'
 
-import type {DogConfig, DogSize, GroomingMode} from '@/app/data/pricingData'
-import {sizeLabels} from '@/app/data/pricingData'
-
-// ─── Mode Toggle ────────────────────────────────────────────
-type ModeToggleProps = {
-  mode: GroomingMode
-  onChange: (mode: GroomingMode) => void
-}
-
-export function ModeToggle({mode, onChange}: ModeToggleProps) {
-  return (
-    <div className="bg-forest-card rounded-full p-1 flex">
-      <button
-        type="button"
-        onClick={() => onChange('fullService')}
-        className={`flex-1 font-sans text-[14px] font-medium px-4 py-2.5 rounded-full transition-all ${
-          mode === 'fullService' ? 'bg-terracotta text-white' : 'text-cream/70 hover:text-cream'
-        }`}
-      >
-        Full Service
-      </button>
-      <button
-        type="button"
-        onClick={() => onChange('alaCarte')}
-        className={`flex-1 font-sans text-[14px] font-medium px-4 py-2.5 rounded-full transition-all ${
-          mode === 'alaCarte' ? 'bg-terracotta text-white' : 'text-cream/70 hover:text-cream'
-        }`}
-      >
-        A La Carte
-      </button>
-    </div>
-  )
-}
-
-// ─── Dog Card ───────────────────────────────────────────────
-type DogCardProps = {
-  dog: DogConfig
-  index: number
-  total: number
-  showHairType: boolean
-  availableSizes: DogSize[]
-  onUpdate: (dog: DogConfig) => void
-  onRemove: () => void
-}
-
-export function DogCard({dog, index, total, showHairType, availableSizes, onUpdate, onRemove}: DogCardProps) {
-  return (
-    <div className="bg-forest-card border border-border-dark rounded-lg p-4 space-y-4">
-      <div className="flex items-center justify-between">
-        <span className="font-sans text-[14px] font-medium text-cream">
-          {total > 1 ? `Dog ${index + 1}` : 'Your Dog'}
-        </span>
-        {total > 1 && (
-          <button
-            type="button"
-            onClick={onRemove}
-            className="font-sans text-[12px] text-cream/40 hover:text-terracotta-light transition-colors"
-          >
-            Remove
-          </button>
-        )}
-      </div>
-
-      {/* Size */}
-      <div>
-        <span className="block text-cream/70 font-sans text-[12px] font-medium uppercase tracking-wider mb-1.5">
-          Size
-        </span>
-        <div className="flex flex-wrap gap-1.5">
-          {availableSizes.map((s) => (
-            <button
-              key={s}
-              type="button"
-              onClick={() => onUpdate({...dog, size: s})}
-              className={`font-sans text-[13px] font-medium px-3 py-1.5 rounded-full border transition-all ${
-                dog.size === s
-                  ? 'bg-terracotta text-white border-terracotta'
-                  : 'bg-transparent text-cream/70 border-border-dark hover:border-cream/40 hover:text-cream'
-              }`}
-            >
-              {sizeLabels[s]}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* Hair Type */}
-      {showHairType && (
-        <div>
-          <span className="block text-cream/70 font-sans text-[12px] font-medium uppercase tracking-wider mb-1.5">
-            Hair Type
-          </span>
-          <div className="flex gap-1.5">
-            {([
-              {value: 'short', label: 'Short Hair'},
-              {value: 'long', label: 'Long Hair'},
-            ] as const).map((opt) => (
-              <button
-                key={opt.value}
-                type="button"
-                onClick={() => onUpdate({...dog, hairType: opt.value})}
-                className={`font-sans text-[13px] font-medium px-3 py-1.5 rounded-full border transition-all ${
-                  dog.hairType === opt.value
-                    ? 'bg-terracotta text-white border-terracotta'
-                    : 'bg-transparent text-cream/70 border-border-dark hover:border-cream/40 hover:text-cream'
-                }`}
-              >
-                {opt.label}
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
-    </div>
-  )
-}
-
 // ─── Add Dog Button ─────────────────────────────────────────
 type AddDogButtonProps = {
   onClick: () => void
@@ -308,8 +191,8 @@ export function ContactNotice() {
     <div className="mt-6 p-4 rounded-lg bg-terracotta/10 border border-terracotta/30">
       <p className="font-sans text-[14px] text-cream">
         For 4 or more dogs, please contact us directly at{' '}
-        <a href="tel:6517889797" className="text-terracotta-light underline font-medium">
-          651-788-9797
+        <a href="tel:7015321618" className="text-terracotta-light underline font-medium">
+          701-532-1618
         </a>{' '}
         for custom pricing.
       </p>
