@@ -67,7 +67,7 @@ export default function Hero({block, index}: HeroProps) {
       />
 
       <div className="container relative z-10 pt-20 pb-4 lg:pt-[12vh] lg:pb-12">
-        <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
+        <div className="flex flex-col items-center text-center max-w-5xl mx-auto">
           {eyebrow && (
             <Wrap>
               <Badge className="mb-5 md:mb-6">{eyebrow}</Badge>
@@ -76,7 +76,7 @@ export default function Hero({block, index}: HeroProps) {
 
           {heading && (
             <Wrap delay={0.1}>
-              <h1 className="text-[48px] md:text-[56px] lg:text-[84px] leading-[104%] tracking-tight font-semibold mb-5">
+              <h1 className="text-[48px] md:text-[56px] lg:text-[74px] leading-[104%] tracking-tight font-semibold mb-5">
                 {heading}
               </h1>
             </Wrap>
@@ -84,29 +84,11 @@ export default function Hero({block, index}: HeroProps) {
 
           {subtext && (
             <Wrap delay={0.2}>
-              <p className="font-sans md:text-base lg:text-lg text-text-muted leading-[150%] max-w-xl mb-6">
+              <p className="font-sans md:text-base lg:text-lg text-text-muted leading-[150%] max-w-3xl mb-6">
                 {subtext}
               </p>
             </Wrap>
           )}
-
-          <Wrap delay={0.25}>
-            <div className="flex items-center justify-center gap-2 md:gap-3 mb-6">
-              {[
-                {label: 'Boarding', href: '/services/boarding'},
-                {label: 'Daycare', href: '/services/daycare'},
-                {label: 'Grooming', href: '/services/grooming'},
-              ].map((service) => (
-                <a
-                  key={service.label}
-                  href={service.href}
-                  className="bg-forest text-white font-sans text-[13px] md:text-[14px] font-medium tracking-wide px-5 py-2.5 rounded-lg hover:bg-forest/90 transition-colors"
-                >
-                  {service.label}
-                </a>
-              ))}
-            </div>
-          </Wrap>
 
           <Wrap className="w-full md:w-auto" delay={0.35}>
             <div className="flex flex-col w-full md:flex-row items-center gap-2 md:gap-3 mb-3 md:mb-4">

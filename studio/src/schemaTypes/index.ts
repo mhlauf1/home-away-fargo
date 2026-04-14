@@ -20,8 +20,10 @@ import {galleryGrid} from './objects/galleryGrid'
 import {contactForm} from './objects/contactForm'
 import {heroSplit} from './objects/heroSplit'
 import {heroBanner} from './objects/heroBanner'
+import {heroMarquee} from './objects/heroMarquee'
 import {heroMinimal} from './objects/heroMinimal'
 import {serviceCards} from './objects/serviceCards'
+import {expandingCardsRow} from './objects/expandingCardsRow'
 import {featureList} from './objects/featureList'
 import {processSteps} from './objects/processSteps'
 import {contentColumns} from './objects/contentColumns'
@@ -43,6 +45,7 @@ import {galleryShowcase} from './objects/galleryShowcase'
 import {galleryPage} from './objects/galleryPage'
 import {valuePillars} from './objects/valuePillars'
 import {pricingPageTabs} from './objects/pricingPageTabs'
+import {spacer} from './objects/spacer'
 import {seo} from './objects/seo'
 import {settings} from './singletons/settings'
 import {link} from './objects/link'
@@ -83,8 +86,10 @@ export const schemaTypes = [
   contactForm,
   heroSplit,
   heroBanner,
+  heroMarquee,
   heroMinimal,
   serviceCards,
+  expandingCardsRow,
   featureList,
   processSteps,
   contentColumns,
@@ -106,4 +111,5 @@ export const schemaTypes = [
   galleryPage,
   valuePillars,
   pricingPageTabs,
+  spacer,
 ]

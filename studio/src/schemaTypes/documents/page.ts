@@ -51,8 +51,10 @@ export const page = defineType({
         {type: 'contactForm'},
         {type: 'heroSplit'},
         {type: 'heroBanner'},
+        {type: 'heroMarquee'},
         {type: 'heroMinimal'},
         {type: 'serviceCards'},
+        {type: 'expandingCardsRow'},
         {type: 'featureList'},
         {type: 'processSteps'},
         {type: 'contentColumns'},
@@ -74,6 +76,7 @@ export const page = defineType({
         {type: 'galleryPage'},
         {type: 'valuePillars'},
         {type: 'pricingPageTabs'},
+        {type: 'spacer'},
       ],
       options: {
         insertMenu: {

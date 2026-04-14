@@ -46,6 +46,14 @@ export type ObjectImage = {
   _type: 'image'
 }
 
+export type CardsObjectImage = {
+  asset?: SanityImageAssetReference
+  media?: unknown // Unable to locate the referenced type "cards.object.image.media" in schema
+  hotspot?: SanityImageHotspot
+  crop?: SanityImageCrop
+  _type: 'image'
+}
+
 export type FeaturesObjectImage = {
   asset?: SanityImageAssetReference
   media?: unknown // Unable to locate the referenced type "features.object.image.media" in schema
@@ -470,6 +478,21 @@ export type FeatureList = {
   backgroundColor?: 'cream' | 'sand'
 }
 
+export type ExpandingCardsRow = {
+  _type: 'expandingCardsRow'
+  eyebrow?: string
+  heading: string
+  subheading?: string
+  cards?: Array<{
+    image: CardsObjectImage
+    title: string
+    subtext?: string
+    link?: Button
+    _key: string
+  }>
+  backgroundColor?: 'cream' | 'sand'
+}
+
 export type ServiceCards = {
   _type: 'serviceCards'
   eyebrow?: string
@@ -494,6 +517,37 @@ export type HeroMinimal = {
   headingAccent?: string
   subtext?: string
   backgroundColor?: 'cream' | 'sand' | 'forest'
+}
+
+export type HeroMarquee = {
+  _type: 'heroMarquee'
+  eyebrow?: string
+  heading: string
+  headingAccent?: string
+  subtext?: string
+  primaryCta?: Button
+  secondaryCta?: Button
+  reviewRating?: number
+  reviewText?: string
+  trustLine?: string
+  bubbleText?: string
+  heroLogo?: {
+    asset?: SanityImageAssetReference
+    media?: unknown
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    alt?: string
+    _type: 'image'
+  }
+  marqueeImages?: Array<{
+    asset?: SanityImageAssetReference
+    media?: unknown
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    alt?: string
+    _type: 'image'
+    _key: string
+  }>
 }
 
 export type HeroBanner = {
@@ -1086,6 +1140,9 @@ export type Service = {
       } & ServiceCards)
     | ({
         _key: string
+      } & ExpandingCardsRow)
+    | ({
+        _key: string
       } & FeatureList)
     | ({
         _key: string
@@ -1108,6 +1165,9 @@ export type Service = {
     | ({
         _key: string
       } & LogoBar)
+    | ({
+        _key: string
+      } & HeroMarquee)
     | ({
         _key: string
       } & HeroMinimal)
@@ -1367,10 +1427,16 @@ export type Page = {
       } & HeroBanner)
     | ({
         _key: string
+      } & HeroMarquee)
+    | ({
+        _key: string
       } & HeroMinimal)
     | ({
         _key: string
       } & ServiceCards)
+    | ({
+        _key: string
+      } & ExpandingCardsRow)
     | ({
         _key: string
       } & FeatureList)
@@ -1677,6 +1743,7 @@ export type AllSanitySchemaTypes =
   | SanityImageAssetReference
   | TeamMemberImage
   | ObjectImage
+  | CardsObjectImage
   | FeaturesObjectImage
   | ColumnsObjectImage
   | LogosObjectImage
@@ -1704,8 +1771,10 @@ export type AllSanitySchemaTypes =
   | ContentColumns
   | ProcessSteps
   | FeatureList
+  | ExpandingCardsRow
   | ServiceCards
   | HeroMinimal
+  | HeroMarquee
   | HeroBanner
   | HeroSplit
   | ContactForm

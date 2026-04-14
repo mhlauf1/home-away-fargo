@@ -80,8 +80,8 @@ The HAFH website is built in milestones, not features. Each milestone represents
 
 ## Milestone 4: Supporting Pages
 
-**Status:** Not Started
-**Branch:** `feature/supporting-pages`
+**Status:** Complete (2026-03-25)
+**Branch:** `feature/supporting-pages` (merged to main)
 
 ### Goals
 - Pricing page: comprehensive pricing tables/cards for all services
@@ -146,6 +146,16 @@ The HAFH website is built in milestones, not features. Each milestone represents
 ---
 
 ## Completed Milestones
+
+### Milestone 4: Supporting Pages (2026-03-25)
+- Pricing page: heroMinimal + pricingPageTabs (daycare table, boarding matrix, grooming matrix, all with calculators) + pricingList (cat/small animal pricing) + ctaBanner
+- Gallery page: heroMinimal + galleryPage (scaffolded, no images yet) + ctaBanner
+- Contact page: contactForm (5 fields: name, email, phone, service select, message) + contact info + map embed + 3 next steps
+- About page: heroMinimal + splitContent (placeholder for founder story) + statsBar + valuePillars (4 values) + ctaBanner
+- New Clients page: heroMinimal + processSteps (4 Gingr onboarding steps) + requirementsList (4 vaccinations) + faqAccordion (4 FAQs) + ctaBanner
+- Webcams page: heroMinimal + webcamGrid (scaffolded, no webcam docs) + ctaBanner
+- All content seeded via Sanity MCP tools and published
+- No code changes needed — build passes clean
 
 ### Milestone 3: Core Pages — Homepage & Services (2026-03-25)
 - Populated homepage pageBuilder: hero, service cards (4), stats bar, testimonials (6), CTA banner

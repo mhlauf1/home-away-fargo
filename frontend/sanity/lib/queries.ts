@@ -163,6 +163,11 @@ const pageBuilderExpansion = /* groq */ `
       ...,
       primaryCta ${buttonFields}
     },
+    _type == "heroMarquee" => {
+      ...,
+      primaryCta ${buttonFields},
+      secondaryCta ${buttonFields}
+    },
     _type == "heroMinimal" => {
       ...
     },
@@ -171,6 +176,13 @@ const pageBuilderExpansion = /* groq */ `
       cards[]{
         ...,
         cta ${buttonFields}
+      }
+    },
+    _type == "expandingCardsRow" => {
+      ...,
+      cards[]{
+        ...,
+        link ${buttonFields}
       }
     },
     _type == "featureList" => {

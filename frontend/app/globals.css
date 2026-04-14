@@ -5,97 +5,33 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 /* ============================================================
-   THEME SYSTEM
-   Three themes: Hearthstone, Prairie Modern, Farmstead Blue.
-   Each theme defines CSS custom properties on :root via
-   data-theme attribute. The @theme block references these
-   variables so all existing Tailwind classes (bg-cream,
-   text-forest, etc.) automatically adapt per theme.
+   COLOR PALETTE
+   Single palette: red + teal with warm neutrals.
+   Fonts: Bricolage Grotesque (heading) + Geist (body)
    ============================================================ */
 
-/* --- Hearthstone (default) ---
-   Warm, cozy, rustic — barn-red siding, stone accents.
-   Fonts: Lora (heading) + Nunito (body)
-*/
-:root,
-[data-theme='hearthstone'] {
-  --theme-cream: #F5EDE0;
-  --theme-sand: #D4A76A;
-  --theme-forest: #2C2418;
-  --theme-forest-card: #3A3224;
-  --theme-terracotta: #8B2D1E;
-  --theme-terracotta-dark: #6E1F13;
-  --theme-terracotta-light: #D4A5A0;
-  --theme-sage: #3B6E8A;
-  --theme-charcoal: #3D3A35;
-  --theme-gold: #D4A76A;
-  --theme-rose: #C4835A;
-  --theme-black: #1A1410;
-  --theme-black-card: #231C14;
-  --theme-border-light: rgba(44, 36, 24, 0.15);
-  --theme-border-dark: rgba(245, 237, 224, 0.2);
-  --theme-border-black: rgba(245, 237, 224, 0.12);
-  --theme-text-muted: rgba(44, 36, 24, 0.72);
-  --theme-text-muted-dark: rgba(245, 237, 224, 0.7);
-  --theme-shadow-color: 44, 36, 24;
-  --theme-font-heading: var(--font-lora, 'Lora', 'Georgia', serif);
-  --theme-font-body: var(--font-nunito, 'Nunito', system-ui, sans-serif);
-}
-
-/* --- Prairie Modern ---
-   Clean, contemporary, airy — warm but lifted.
-   Fonts: Plus Jakarta Sans (both heading and body)
-*/
-[data-theme='prairie-modern'] {
-  --theme-cream: #F7F3ED;
-  --theme-sand: #E8DFD1;
-  --theme-forest: #3D3A35;
-  --theme-forest-card: #4A4740;
-  --theme-terracotta: #C67D52;
-  --theme-terracotta-dark: #A8632F;
-  --theme-terracotta-light: #E8C4B0;
-  --theme-sage: #6B8F71;
-  --theme-charcoal: #3D3A35;
-  --theme-gold: #A8C4B8;
-  --theme-rose: #C67D52;
-  --theme-black: #111111;
-  --theme-black-card: #1A1A1A;
-  --theme-border-light: rgba(61, 58, 53, 0.15);
-  --theme-border-dark: rgba(247, 243, 237, 0.2);
-  --theme-border-black: rgba(247, 243, 237, 0.12);
-  --theme-text-muted: rgba(61, 58, 53, 0.72);
-  --theme-text-muted-dark: rgba(247, 243, 237, 0.7);
-  --theme-shadow-color: 61, 58, 53;
-  --theme-font-heading: var(--font-jakarta, 'Plus Jakarta Sans', system-ui, sans-serif);
-  --theme-font-body: var(--font-jakarta, 'Plus Jakarta Sans', system-ui, sans-serif);
-}
-
-/* --- Farmstead Blue ---
-   Confident, established — navy + gold.
-   Fonts: Playfair Display (heading) + Inter (body)
-*/
-[data-theme='farmstead-blue'] {
-  --theme-cream: #FAF6EF;
-  --theme-sand: #E8DFD1;
-  --theme-forest: #1E3A5F;
-  --theme-forest-card: #2A4A70;
-  --theme-terracotta: #D4A24E;
-  --theme-terracotta-dark: #B88A3A;
-  --theme-terracotta-light: #F0DDB5;
-  --theme-sage: #3B7BC0;
-  --theme-charcoal: #2A2520;
-  --theme-gold: #D4A24E;
-  --theme-rose: #E86F45;
-  --theme-black: #111111;
-  --theme-black-card: #1A1A1A;
-  --theme-border-light: rgba(30, 58, 95, 0.15);
-  --theme-border-dark: rgba(250, 246, 239, 0.2);
-  --theme-border-black: rgba(250, 246, 239, 0.12);
-  --theme-text-muted: rgba(30, 58, 95, 0.72);
-  --theme-text-muted-dark: rgba(250, 246, 239, 0.7);
-  --theme-shadow-color: 30, 58, 95;
-  --theme-font-heading: var(--font-playfair, 'Playfair Display', 'Georgia', serif);
-  --theme-font-body: var(--font-inter, 'Inter', system-ui, sans-serif);
+:root {
+  --theme-cream: #FFF6F6;
+  --theme-sand: #F0EAEA;
+  --theme-forest: #2C687B;
+  --theme-forest-card: #356F85;
+  --theme-terracotta: #DB1A1A;
+  --theme-terracotta-dark: #B01515;
+  --theme-terracotta-light: #F0A0A0;
+  --theme-sage: #8CC7C4;
+  --theme-charcoal: #1E4A5A;
+  --theme-gold: #8CC7C4;
+  --theme-rose: #E85050;
+  --theme-black: #0F1E24;
+  --theme-black-card: #162A32;
+  --theme-border-light: rgba(44, 104, 123, 0.15);
+  --theme-border-dark: rgba(255, 246, 246, 0.2);
+  --theme-border-black: rgba(255, 246, 246, 0.12);
+  --theme-text-muted: rgba(44, 104, 123, 0.80);
+  --theme-text-muted-dark: rgba(255, 246, 246, 0.7);
+  --theme-shadow-color: 44, 104, 123;
+  --theme-font-heading: var(--font-bricolage, 'Bricolage Grotesque', system-ui, sans-serif);
+  --theme-font-body: var(--font-geist, 'Geist', system-ui, sans-serif);
 }
 
 /* ============================================================

@@ -6,8 +6,8 @@ type DecorativeCurveProps = {
 
 const colorMap = {
   white: '#FFFFFF',
-  terracotta: '#C4704B',
-  cream: '#FAF7F2',
+  terracotta: '#DB1A1A',
+  cream: '#FFF6F6',
 }
 
 export default function DecorativeCurve({
