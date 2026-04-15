@@ -127,6 +127,11 @@ export type MatrixData = {
   footnotes?: Array<string>
 }
 
+export type Spacer = {
+  _type: 'spacer'
+  size?: 'sm' | 'md' | 'lg' | 'xl'
+}
+
 export type PricingPageTabs = {
   _type: 'pricingPageTabs'
   eyebrow?: string
@@ -778,6 +783,7 @@ export type CtaBanner = {
     _type: 'image'
   }
   cta?: Button
+  alignment?: 'center' | 'left'
   showRating?: boolean
   ratingText?: string
 }
@@ -1204,6 +1210,9 @@ export type Service = {
     | ({
         _key: string
       } & ValuePillars)
+    | ({
+        _key: string
+      } & Spacer)
   >
 }
 
@@ -1500,6 +1509,9 @@ export type Page = {
     | ({
         _key: string
       } & PricingPageTabs)
+    | ({
+        _key: string
+      } & Spacer)
   >
 }
 
@@ -1750,6 +1762,7 @@ export type AllSanitySchemaTypes =
   | ItemsObjectImage
   | TableData
   | MatrixData
+  | Spacer
   | PricingPageTabs
   | ValuePillars
   | GalleryPage
