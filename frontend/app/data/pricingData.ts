@@ -209,10 +209,10 @@ export const groomingRates: Record<GroomingService, Record<DogSize, number>> = {
     xl: 165,
   },
   exitBath: {
-    s: 49,
-    m: 59,
-    l: 69,
-    xl: 89,
+    s: 45,
+    m: 55,
+    l: 65,
+    xl: 85,
   },
 }
 
