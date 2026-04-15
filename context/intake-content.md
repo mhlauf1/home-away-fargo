@@ -10,7 +10,7 @@
 - **Address:** 5390 51st Ave S Suite A, Fargo, ND 58104
 - **Phone:** 701-532-1618
 - **Email:** contactus@hafhfacility.com
-- **Year Opened:** 2022
+- **Year Established:** 2017
 - **Service Area:** Proudly serving pet families in Fargo, Moorhead, West Fargo, Dilworth, and surrounding communities throughout the Fargo–Moorhead area.
 
 ---
@@ -127,10 +127,10 @@ A perfect introduction to daycare for new guests.
 - Final pricing determined by coat density, coat condition, and grooming time.
 
 #### Exit Bath
-- Small: $49
-- Medium: $59
-- Large: $69
-- X-Large: $89
+- Small: $45
+- Medium: $55
+- Large: $65
+- X-Large: $85
 
 **Includes:** nail trim, ear cleaning, shampoo, conditioner, hand dry, brush out, bandana and cologne
 

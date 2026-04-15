@@ -166,7 +166,7 @@ Homepage ties it together with: hero, services overview cards, stats counter, ph
 - **Address:** 5390 51st Ave S Suite A, Fargo, ND 58104
 - **Phone:** 701-532-1618
 - **Email:** contactus@hafhfacility.com
-- **Year opened:** 2022
+- **Year established:** 2017
 - **Service area:** Fargo, Moorhead, West Fargo, Dilworth, and surrounding Fargo-Moorhead communities
 - **Play areas:** 4 indoor, 3 outdoor
 - **Booking:** Gingr Pet Parent App (invite code: 393992)
