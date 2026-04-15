@@ -94,6 +94,7 @@ export const service = defineType({
         {type: 'heroSplit'},
         {type: 'heroBanner'},
         {type: 'serviceCards'},
+        {type: 'expandingCardsRow'},
         {type: 'featureList'},
         {type: 'processSteps'},
         {type: 'contentColumns'},
@@ -102,6 +103,7 @@ export const service = defineType({
         {type: 'fullWidthMedia'},
         {type: 'ctaStrip'},
         {type: 'logoBar'},
+        {type: 'heroMarquee'},
         {type: 'heroMinimal'},
         {type: 'pricingMatrix'},
         {type: 'pricingList'},
@@ -114,6 +116,7 @@ export const service = defineType({
         {type: 'galleryCarousel'},
         {type: 'galleryShowcase'},
         {type: 'valuePillars'},
+        {type: 'spacer'},
       ],
       options: {
         insertMenu: {

@@ -77,6 +77,20 @@ export const ctaBanner = defineType({
       type: 'button',
     }),
     defineField({
+      name: 'alignment',
+      title: 'Content Alignment',
+      type: 'string',
+      description: 'Alignment of the content in the full-width (no side image) layout',
+      options: {
+        list: [
+          {title: 'Center', value: 'center'},
+          {title: 'Left', value: 'left'},
+        ],
+        layout: 'radio',
+      },
+      initialValue: 'center',
+    }),
+    defineField({
       name: 'showRating',
       title: 'Show Rating',
       type: 'boolean',

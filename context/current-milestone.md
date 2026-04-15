@@ -1,37 +1,43 @@
 # Current Milestone
 
-## Milestone 3: Core Pages — Homepage & Services
+## Milestone 4: Supporting Pages
 
 ### Status
 Complete
 
 ### Goals
-- Populate homepage pageBuilder with hero, service cards, stats, testimonials, CTA
-- Populate daycare page with hero, features, pricing calculator, FAQs, CTA
-- Populate boarding page with hero, features, packing list, pricing calculator, FAQs, CTA
-- Populate grooming page with hero, features, team grid (Sheryl Wagner), pricing calculator, CTA
-- Populate cat services page with hero, features, requirements list, CTA
-- Verify all pages render correctly across all three themes
-- Ensure pricing calculators, FAQ accordions, and testimonials carousel are functional
-- Responsive across desktop, tablet, mobile
+- Pricing page: comprehensive pricing tables/cards for all services (daycare, boarding, grooming, cats)
+- Gallery page: scaffolded with heading/subtext (awaiting facility photos)
+- Contact page: functional contact form with fields, contact info, map embed, next steps
+- About page: scaffolded with placeholder blocks (awaiting facility content)
+- New Clients page: onboarding process steps, vaccination requirements, FAQs
+- Webcams page: scaffolded (conditional on facility response)
 
 ### Notes
-- All section components are already built from the Hound Around codebase
-- Content comes from @context/intake-content.md
-- Page/service documents exist in Sanity with empty pageBuilder arrays
-- Pricing calculator data is hardcoded in `frontend/app/data/pricingData.ts` (already correct for HAFH)
-- 6 testimonials already seeded as standalone documents
+- No code changes needed — all 40+ section components already built from Hound Around codebase
+- All content seeded via Sanity MCP tools (patch_document_from_json append operations)
+- Gallery page has no images yet — facility team needs to provide photos
+- About page has `[PLACEHOLDER]` markers for founder story and team content
+- Webcams page scaffolded but no webcam documents exist yet
+- Contact form API route exists at `/api/contact` (nodemailer) — needs SMTP env vars configured for production
+- Map embed URL is a placeholder — should be updated with actual Google Maps embed
 
 ### Definition of Done
-- All 5 pages (homepage + 4 services) fully built and populated with Sanity content
-- Pricing calculators functional
-- FAQ accordions functional
-- Testimonials carousel functional
-- Looks correct in all three themes
-- Mobile responsive
+- All 6 supporting pages built and populated with Sanity content
+- Contact form functional (UI and submission endpoint)
+- Pricing page shows all service pricing with interactive calculators
+- New Clients page has onboarding steps, vaccination requirements, and FAQs
+- Placeholder sections clearly marked for future content
+- All three themes look correct
 - `npm run build` passes
 
 ### History
-- 2026-03-25: Started M3, created branch `feature/core-pages`
-- 2026-03-25: Seeded all 5 pageBuilder arrays (homepage + 4 services) via Sanity MCP
-- 2026-03-25: Published all documents, verified rendering, build passes
+- 2026-03-25: Started M4, created branch `feature/supporting-pages`
+- 2026-03-25: Seeded all 6 pageBuilder arrays via Sanity MCP
+  - Pricing: heroMinimal + pricingPageTabs (3 tabs with calculators) + pricingList (cats) + ctaBanner
+  - Gallery: heroMinimal + galleryPage + ctaBanner (no images yet)
+  - Contact: contactForm (5 form fields, contact info, map, 3 next steps)
+  - About: heroMinimal + splitContent (placeholder) + statsBar + valuePillars (4) + ctaBanner
+  - New Clients: heroMinimal + processSteps (4) + requirementsList (4) + faqAccordion (4) + ctaBanner
+  - Webcams: heroMinimal + webcamGrid + ctaBanner
+- 2026-03-25: Published all 6 documents, build passes

@@ -2,41 +2,17 @@ import './globals.css'
 
 import {SpeedInsights} from '@vercel/speed-insights/next'
 import type {Metadata} from 'next'
-import {Lora, Nunito, Plus_Jakarta_Sans, Playfair_Display, Inter} from 'next/font/google'
+import {Bricolage_Grotesque, Geist} from 'next/font/google'
 
-// Hearthstone fonts
-const lora = Lora({
-  variable: '--font-lora',
+const bricolage = Bricolage_Grotesque({
+  variable: '--font-bricolage',
   subsets: ['latin'],
   display: 'swap',
   weight: ['400', '500', '600', '700'],
 })
 
-const nunito = Nunito({
-  variable: '--font-nunito',
-  subsets: ['latin'],
-  display: 'swap',
-  weight: ['400', '500', '600', '700'],
-})
-
-// Prairie Modern fonts
-const jakarta = Plus_Jakarta_Sans({
-  variable: '--font-jakarta',
-  subsets: ['latin'],
-  display: 'swap',
-  weight: ['400', '500', '600', '700'],
-})
-
-// Farmstead Blue fonts
-const playfair = Playfair_Display({
-  variable: '--font-playfair',
-  subsets: ['latin'],
-  display: 'swap',
-  weight: ['400', '500', '600', '700'],
-})
-
-const inter = Inter({
-  variable: '--font-inter',
+const geist = Geist({
+  variable: '--font-geist',
   subsets: ['latin'],
   display: 'swap',
   weight: ['400', '500', '600', '700'],
@@ -47,7 +23,6 @@ import {VisualEditing} from 'next-sanity/visual-editing'
 import {Toaster} from 'sonner'
 
 import DraftModeToast from '@/app/components/DraftModeToast'
-import ThemeToggle from '@/app/components/dev/ThemeToggle'
 import Footer from '@/app/components/Footer'
 import Header from '@/app/components/Header'
 import {sanityFetch, SanityLive} from '@/sanity/lib/live'
@@ -183,7 +158,7 @@ export default async function RootLayout({children}: {children: React.ReactNode}
   })
 
   return (
-    <html lang="en" data-theme="hearthstone" className={`${lora.variable} ${nunito.variable} ${jakarta.variable} ${playfair.variable} ${inter.variable} bg-cream text-forest`}>
+    <html lang="en" className={`${bricolage.variable} ${geist.variable} bg-cream text-forest`}>
       <head>
         <link rel="preconnect" href="https://cdn.sanity.io" />
         <link rel="dns-prefetch" href="https://cdn.sanity.io" />
@@ -276,7 +251,6 @@ export default async function RootLayout({children}: {children: React.ReactNode}
           footerSticker={settings?.footerSticker as any}
         />
         <SpeedInsights />
-        {process.env.NEXT_PUBLIC_SHOW_THEME_TOGGLE === 'true' && <ThemeToggle />}
       </body>
     </html>
   )

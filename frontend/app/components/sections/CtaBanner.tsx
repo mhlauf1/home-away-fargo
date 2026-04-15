@@ -1,6 +1,5 @@
 import Button from '@/app/components/ui/Button'
 import Image from '@/app/components/SanityImage'
-import DecorativeCurve from '@/app/components/ui/DecorativeCurve'
 import {FadeIn} from '@/app/components/ui/FadeIn'
 
 type CtaBannerProps = {
@@ -13,6 +12,7 @@ type CtaBannerProps = {
     cta?: {buttonText?: string; link?: any}
     showRating?: boolean
     ratingText?: string
+    alignment?: 'center' | 'left'
   }
   index: number
   pageId: string
@@ -36,9 +36,19 @@ function RatingBar({ratingText}: {ratingText: string}) {
 
 export default function CtaBanner({block, index}: CtaBannerProps) {
   const isEarly = index <= 1
-  const {heading, icon, stickerImage, backgroundImage, sideImage, cta, showRating, ratingText} =
-    block
+  const {
+    heading,
+    icon,
+    stickerImage,
+    backgroundImage,
+    sideImage,
+    cta,
+    showRating,
+    ratingText,
+    alignment = 'center',
+  } = block
   const hasSideImage = !!sideImage?.asset?._ref
+  const isLeft = alignment === 'left'
 
   if (hasSideImage) {
     return (
@@ -56,7 +66,7 @@ export default function CtaBanner({block, index}: CtaBannerProps) {
                 className="w-full h-full object-cover"
                 {...(isEarly && {loading: 'eager' as const, fetchPriority: 'high' as const})}
               />
-              <div className="absolute inset-0 bg-forest/20" />
+              <div className="absolute inset-0 bg-black/50" />
             </div>
           ) : (
             <div className="absolute inset-0 bg-forest" />
@@ -134,7 +144,11 @@ export default function CtaBanner({block, index}: CtaBannerProps) {
 
   return (
     <section className="bg-cream px-4 lg:px-8">
-      <div className="relative rounded-lg min-h-[60vh] md:min-h-[80vh] flex px-[6%] md:px-[10%] items-center overflow-hidden">
+      <div
+        className={`relative rounded-lg min-h-[60vh] md:min-h-[80vh] flex px-[6%] md:px-[10%] overflow-hidden ${
+          isLeft ? 'items-center justify-start' : 'items-center'
+        }`}
+      >
         {/* Background image */}
         {backgroundImage?.asset?._ref && (
           <div className="absolute inset-0">
@@ -147,13 +161,17 @@ export default function CtaBanner({block, index}: CtaBannerProps) {
               className="w-full h-full object-cover"
               {...(isEarly && {loading: 'eager' as const, fetchPriority: 'high' as const})}
             />
-            <div className="absolute inset-0 bg-forest/20" />
+            <div className="absolute inset-0 bg-black/50" />
           </div>
         )}
 
         {/* Fallback dark bg if no image */}
         {!backgroundImage?.asset?._ref && <div className="absolute inset-0 bg-forest" />}
-        <div className="relative flex flex-col tems-center z-10 py-16 lg:py-24 text-start md:text-center">
+        <div
+          className={`relative flex flex-col w-full z-10 py-16 lg:py-24 ${
+            isLeft ? 'items-start text-start' : 'items-center text-start md:text-center'
+          }`}
+        >
           {stickerImage?.asset?._ref && (
             <FadeIn>
               <div className="bg-white rounded-full p-3 w-fit mb-6">
@@ -174,7 +192,7 @@ export default function CtaBanner({block, index}: CtaBannerProps) {
                   id={icon.asset._ref}
                   alt={icon.alt || ''}
                   width={120}
-                  className="w-[100px] lg:w-[120px] h-auto mx-auto"
+                  className={`w-[100px] lg:w-[120px] h-auto ${isLeft ? '' : 'mx-auto'}`}
                 />
               </div>
             </FadeIn>
@@ -182,7 +200,11 @@ export default function CtaBanner({block, index}: CtaBannerProps) {
 
           {heading && (
             <FadeIn delay={0.1}>
-              <h2 className="text-[32px] tracking-tight font-semibold text-center  md:text-[44px] lg:text-[56px] leading-[105%] text-white mb-10 max-w-lg mx-auto">
+              <h2
+                className={`text-[32px] tracking-tight font-semibold md:text-[44px] lg:text-[56px] leading-[105%] text-white mb-10 max-w-4xl ${
+                  isLeft ? 'text-left' : 'text-center mx-auto'
+                }`}
+              >
                 {heading}
               </h2>
             </FadeIn>
@@ -197,7 +219,11 @@ export default function CtaBanner({block, index}: CtaBannerProps) {
 
           {showRating && ratingText && (
             <FadeIn delay={0.3}>
-              <div className="flex items-center justify-center gap-1.5 mt-4">
+              <div
+                className={`flex items-center gap-1.5 mt-4 ${
+                  isLeft ? 'justify-start' : 'justify-center'
+                }`}
+              >
                 <RatingBar ratingText={ratingText} />
               </div>
             </FadeIn>
