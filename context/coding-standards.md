@@ -47,7 +47,7 @@
 All three design themes (Hearthstone, Prairie Modern, Farmstead Blue) are defined as CSS custom property sets. Components use semantic token names, never raw hex values.
 
 ```css
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @theme {
   --color-primary: var(--theme-primary);
@@ -63,7 +63,6 @@ All three design themes (Hearthstone, Prairie Modern, Farmstead Blue) are define
 
 - **Never use hardcoded color values** in components — always reference semantic tokens
 - Theme switching is handled by swapping a `data-theme` attribute on `<html>` which activates the corresponding CSS custom property set
-- The dev-only theme toggle widget is conditionally rendered based on `NEXT_PUBLIC_SHOW_THEME_TOGGLE`
 
 ## File Organization
 

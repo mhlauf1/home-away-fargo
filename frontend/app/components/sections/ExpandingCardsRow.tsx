@@ -77,7 +77,7 @@ export default function ExpandingCardsRow({block}: ExpandingCardsRowProps) {
                     {i + 1}
                   </div>
 
-                  <div className="absolute bottom-0 left-0 right-0 p-7 md:p-8 text-white flex flex-col gap-3">
+                  <div className="absolute bottom-0 left-0 right-0 p-5 md:p-6 text-white flex flex-col gap-1">
                     {card.title && (
                       <h3 className="text-[24px] md:text-[28px] font-semibold leading-[110%]">
                         {card.title}
