@@ -1,43 +1,36 @@
 # Current Milestone
 
-## Milestone 4: Supporting Pages
+## Client Corrections — Round 2
 
 ### Status
 Complete
 
 ### Goals
-- Pricing page: comprehensive pricing tables/cards for all services (daycare, boarding, grooming, cats)
-- Gallery page: scaffolded with heading/subtext (awaiting facility photos)
-- Contact page: functional contact form with fields, contact info, map embed, next steps
-- About page: scaffolded with placeholder blocks (awaiting facility content)
-- New Clients page: onboarding process steps, vaccination requirements, FAQs
-- Webcams page: scaffolded (conditional on facility response)
+Implement Brian's second round of copy, pricing, nav, and logo corrections before advancing to M5.
 
-### Notes
-- No code changes needed — all 40+ section components already built from Hound Around codebase
-- All content seeded via Sanity MCP tools (patch_document_from_json append operations)
-- Gallery page has no images yet — facility team needs to provide photos
-- About page has `[PLACEHOLDER]` markers for founder story and team content
-- Webcams page scaffolded but no webcam documents exist yet
-- Contact form API route exists at `/api/contact` (nodemailer) — needs SMTP env vars configured for production
-- Map embed URL is a placeholder — should be updated with actual Google Maps embed
+### Changes
+- Boarding additional-dog rate: $29 → $39 (code + both Sanity pricing tables)
+- Homepage About section: replaced "Closed major holidays." with 365-day / limited-lobby-hours copy
+- Uploaded new HAFH logo (dog + cat silhouettes with wordmark) to Sanity and wired it into `settings.logo`
+- Fixed boarding service page's "View Pricing" CTA to deep-link `/pricing#boarding` (was landing on the daycare tab)
+- Boarding pricing tab intro: "Boarding That Feels Like Home — Transparent Pricing, Exceptional Care"
+- Grooming service page hero: "Your Best Friend deserves a Spa Day"
+- Grooming pricing tab intro: "Professional Grooming by Certified Experts" (moved from grooming service page)
+- Cats service page: removed hero "View Pricing" CTA and removed the inline Cat Care Pricing section
+- Pricing page: removed 3 feline rows from the pricingList; renamed block to "Small Animal Pricing" with updated description (Small Animal Boarding row retained)
+- Nav: renamed "Services" → "Services and Pricing" (desktop + mobile); removed standalone "Pricing" top-level nav item + footer Information-column Pricing link
 
 ### Definition of Done
-- All 6 supporting pages built and populated with Sanity content
-- Contact form functional (UI and submission endpoint)
-- Pricing page shows all service pricing with interactive calculators
-- New Clients page has onboarding steps, vaccination requirements, and FAQs
-- Placeholder sections clearly marked for future content
-- All three themes look correct
+- All 14 items from Brian's email addressed or explicitly deferred (gallery photos, "How to Join" wording both deferred)
 - `npm run build` passes
+- Programmatic HTML verification across 5 routes: homepage, /services/boarding, /services/grooming, /services/cats, /pricing
+- All 6 modified Sanity docs published
+
+### Open items
+- Homepage statsBar `Established: 2022` is still wrong — CLAUDE.md + `settings.yearEstablished` both say 2017. Not in Brian's list for Round 2, flagging for a separate quick fix.
+- Gallery photos pending Tonya
+- "How to Join" wording tweak — owner is handling directly
 
 ### History
-- 2026-03-25: Started M4, created branch `feature/supporting-pages`
-- 2026-03-25: Seeded all 6 pageBuilder arrays via Sanity MCP
-  - Pricing: heroMinimal + pricingPageTabs (3 tabs with calculators) + pricingList (cats) + ctaBanner
-  - Gallery: heroMinimal + galleryPage + ctaBanner (no images yet)
-  - Contact: contactForm (5 form fields, contact info, map, 3 next steps)
-  - About: heroMinimal + splitContent (placeholder) + statsBar + valuePillars (4) + ctaBanner
-  - New Clients: heroMinimal + processSteps (4) + requirementsList (4) + faqAccordion (4) + ctaBanner
-  - Webcams: heroMinimal + webcamGrid + ctaBanner
-- 2026-03-25: Published all 6 documents, build passes
+- 2026-04-20: Started Round 2 on branch `fix/client-corrections-round-2`
+- 2026-04-20: Patched + published 6 Sanity docs (settings, homepage, boarding, grooming, cats, pricing), uploaded new logo asset, updated `boardingAdditionalDogRate` in `pricingData.ts`, build passes, HTML QA passes

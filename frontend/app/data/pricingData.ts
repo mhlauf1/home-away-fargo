@@ -142,7 +142,7 @@ export const boardingRooms: Record<RoomType, RoomMeta> = {
   },
 }
 
-export const boardingAdditionalDogRate = 29
+export const boardingAdditionalDogRate = 39
 
 export type BoardingDogConfig = {
   id: string

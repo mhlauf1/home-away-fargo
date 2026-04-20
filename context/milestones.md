@@ -147,6 +147,20 @@ The HAFH website is built in milestones, not features. Each milestone represents
 
 ## Completed Milestones
 
+### Client Corrections — Round 2 (2026-04-20)
+Branch: `fix/client-corrections-round-2`
+- Boarding additional-dog rate $29 → $39 (code + both Sanity pricing tables)
+- Homepage About: replaced "Closed major holidays." with 365-day/limited-lobby-hours copy
+- Uploaded new HAFH logo asset and wired into `settings.logo`
+- `/services/boarding` "View Pricing" CTA repointed from `/pricing` (daycare default) to `/pricing#boarding`
+- Boarding pricing tab intro → "Boarding That Feels Like Home — Transparent Pricing, Exceptional Care"
+- Grooming service page hero → "Your Best Friend deserves a Spa Day"
+- Grooming pricing tab intro → "Professional Grooming by Certified Experts" (moved from grooming service page)
+- Cats service page: removed hero "View Pricing" CTA and inline Cat Care Pricing section
+- Pricing page: stripped 3 feline rows from pricingList, renamed block to "Small Animal Pricing"
+- Nav: "Services" → "Services and Pricing"; removed top-level "Pricing" and footer Information-column Pricing link
+- 6 Sanity docs published, build clean, HTML QA across 5 routes
+
 ### Milestone 4: Supporting Pages (2026-03-25)
 - Pricing page: heroMinimal + pricingPageTabs (daycare table, boarding matrix, grooming matrix, all with calculators) + pricingList (cat/small animal pricing) + ctaBanner
 - Gallery page: heroMinimal + galleryPage (scaffolded, no images yet) + ctaBanner
