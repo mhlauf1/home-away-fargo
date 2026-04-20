@@ -37,13 +37,13 @@ export default function RequirementsList({block}: RequirementsListProps) {
           {/* Text side */}
           <div className={isImageLeft ? 'lg:order-2' : 'lg:order-1'}>
             {eyebrow && (
-              <FadeIn>
+              <FadeIn immediate>
                 <Badge className="mb-3">{eyebrow}</Badge>
               </FadeIn>
             )}
 
             {heading && (
-              <FadeIn delay={0.05}>
+              <FadeIn delay={0.05} immediate>
                 <h2 className="md:text-5xl text-4xl lg:text-text-6xl leading-[110%] font-semibold tracking-tight mb-4">
                   {heading}
                 </h2>
@@ -51,7 +51,7 @@ export default function RequirementsList({block}: RequirementsListProps) {
             )}
 
             {description && (
-              <FadeIn delay={0.1}>
+              <FadeIn delay={0.1} immediate>
                 <p className="text-[16px] lg:text-[18px] md:w-[90%]  leading-[160%] opacity-80 mb-8">
                   {description}
                 </p>
@@ -59,7 +59,7 @@ export default function RequirementsList({block}: RequirementsListProps) {
             )}
 
             {items && items.length > 0 && (
-              <FadeIn delay={0.15}>
+              <FadeIn delay={0.15} immediate>
                 <ul className="space-y-4 mb-8">
                   {items.map((item) => (
                     <li key={item._key} className="flex items-start gap-3">
@@ -88,7 +88,7 @@ export default function RequirementsList({block}: RequirementsListProps) {
             )}
 
             {link?.label && link?.link && (
-              <FadeIn delay={0.2}>
+              <FadeIn delay={0.2} immediate>
                 <ResolvedLink
                   link={link.link}
                   className="inline-flex items-center gap-2 text-[16px] font-medium text-terracotta hover:opacity-70 transition-opacity"
@@ -117,7 +117,7 @@ export default function RequirementsList({block}: RequirementsListProps) {
           {/* Image side */}
           <div className={isImageLeft ? 'lg:order-1' : 'lg:order-2'}>
             {image?.asset?._ref && (
-              <FadeIn delay={0.1}>
+              <FadeIn delay={0.1} immediate>
                 <Image
                   id={image.asset._ref}
                   alt={image.alt || heading || 'Requirements image'}
