@@ -1,12 +1,41 @@
 # Current Milestone
 
-## Client Corrections — Round 2
+## Client Corrections — Round 3 (Go-Live Prep)
+
+### Status
+In progress
+
+### Goals
+Address Brian's go-live note: remove the About tab from the homepage. Tighten related placeholders ahead of a midnight go-live on 2026-04-21.
+
+### Changes
+- Nav: removed top-level "About" item (desktop + mobile)
+- Footer: removed "About" link from the Information column
+- Homepage splitContent "About Us" block: removed the "Learn more about us" CTA so it no longer drives users to the orphaned, placeholder-only About page
+- Homepage statsBar: `Established: 2022` → `2017` (Round 2 open item, now resolved)
+
+### Definition of Done
+- About no longer appears in nav or footer on any page
+- Homepage "About Us" blurb renders with no trailing CTA
+- Homepage statsBar reads 2017
+- 2 Sanity docs re-published (settings, homepage)
+
+### Open items surfaced to Brian
+- Gallery page is still empty — photos pending Tonya
+- About page itself remains in Sanity with `[PLACEHOLDER: Our Story]` content; it is now orphaned from nav/footer/homepage, but the `/about` URL is still reachable directly. Decide whether to delete the page doc, noindex it, or leave it as a cheap shell in case the founder story arrives post-launch.
+- Webcams page is scaffolded only (no webcam docs seeded). Not linked from nav or footer, so no user impact.
+- "How to Join" wording tweak — owner handling directly
+
+### History
+- 2026-04-21: Brian's go-live note: drop the ABOUT tab; homepage blurb is sufficient. Continuing on branch `fix/client-corrections-round-2`.
+- 2026-04-21: Unset navItems[About] and footerColumns[Information].links[About] on settings; unset the homepage splitContent `link` field; corrected homepage statsBar year to 2017; published settings + homepage.
+
+---
+
+## Previous: Client Corrections — Round 2
 
 ### Status
 Complete
-
-### Goals
-Implement Brian's second round of copy, pricing, nav, and logo corrections before advancing to M5.
 
 ### Changes
 - Boarding additional-dog rate: $29 → $39 (code + both Sanity pricing tables)
@@ -19,17 +48,6 @@ Implement Brian's second round of copy, pricing, nav, and logo corrections befor
 - Cats service page: removed hero "View Pricing" CTA and removed the inline Cat Care Pricing section
 - Pricing page: removed 3 feline rows from the pricingList; renamed block to "Small Animal Pricing" with updated description (Small Animal Boarding row retained)
 - Nav: renamed "Services" → "Services and Pricing" (desktop + mobile); removed standalone "Pricing" top-level nav item + footer Information-column Pricing link
-
-### Definition of Done
-- All 14 items from Brian's email addressed or explicitly deferred (gallery photos, "How to Join" wording both deferred)
-- `npm run build` passes
-- Programmatic HTML verification across 5 routes: homepage, /services/boarding, /services/grooming, /services/cats, /pricing
-- All 6 modified Sanity docs published
-
-### Open items
-- Homepage statsBar `Established: 2022` is still wrong — CLAUDE.md + `settings.yearEstablished` both say 2017. Not in Brian's list for Round 2, flagging for a separate quick fix.
-- Gallery photos pending Tonya
-- "How to Join" wording tweak — owner is handling directly
 
 ### History
 - 2026-04-20: Started Round 2 on branch `fix/client-corrections-round-2`
