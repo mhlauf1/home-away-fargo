@@ -26,9 +26,24 @@ Address Brian's go-live note: remove the About tab from the homepage. Tighten re
 - Webcams page is scaffolded only (no webcam docs seeded). Not linked from nav or footer, so no user impact.
 - "How to Join" wording tweak — owner handling directly
 
+### Follow-up (last call from Brian, 2026-04-21)
+Brian relayed two Tonya concerns before go-live:
+1. Any residual "24/7 coverage" claim — needs to be removed
+2. Established date 2022 → 2017
+
+Audit findings: homepage was already clean. Stale/false content was isolated to the orphaned `/about` page.
+
+#### Changes
+- About page `heroMinimal.subtext`: "Since 2022, we've been providing…" → "Since 2017, we've been providing…"
+- About page `statsBar`: `Established: 2022` → `2017`
+- About page `valuePillars`: removed the "On-Site Care / 24/7" pillar (description claimed "never left unattended / around the clock"), reduced layout from 4 columns to 3
+
+Branch: `fix/client-corrections-round-3-followup`
+
 ### History
 - 2026-04-21: Brian's go-live note: drop the ABOUT tab; homepage blurb is sufficient. Continuing on branch `fix/client-corrections-round-2`.
 - 2026-04-21: Unset navItems[About] and footerColumns[Information].links[About] on settings; unset the homepage splitContent `link` field; corrected homepage statsBar year to 2017; published settings + homepage.
+- 2026-04-21: Tonya follow-up — patched About page (2022 → 2017 in hero subtext + statsBar; removed 24/7 "On-Site Care" valuePillar, 4-col → 3-col); published About page.
 
 ---
 
