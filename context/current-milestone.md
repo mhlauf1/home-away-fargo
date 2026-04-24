@@ -47,6 +47,28 @@ Branch: `fix/client-corrections-round-3-followup`
 
 ---
 
+## Round 4 — Tonya's final go-live list (2026-04-24)
+
+### Status
+Awaiting user review before commit. Working on `main` (no branch, per user request).
+
+### Changes
+- **Late boarding pickup fee** ($25 → $29): `page` (pricing) `pricingPageTabs` → boarding service `matrixData.footnotes[1]` now reads "Late pickup after 1:30 PM on weekends incurs a $29 fee (same as half day of daycare)"
+- **Grooming pricing disclaimer — added "behavior"**: both in Sanity (`service` grooming → `pricingTable.description`) and code (`frontend/app/components/pricing/GroomingCalculator.tsx:80`)
+- **Mobile grooming note**: appended "We also offer mobile grooming — call or ask an associate for details." to the grooming service page `pricingTable.description`
+- **Exit bath prices** $45/$55/$65/$85 → $49/$59/$69/$89 in three places:
+  - `frontend/app/data/pricingData.ts` `exitBath` rates (drives the grooming calculator)
+  - `service` (grooming) `pricingTable.categories[].tiers[].description` ("Exit Bath $49/$59/$69/$89.")
+  - `page` (pricing) `pricingPageTabs` → grooming service → matrix "Exit Bath" cells
+- **Contact email**: `settings.contactInfo.email` → `hafhfacility@gmail.com` (was `contactus@hafhfacility.com`). Rendered site-wide via Footer, layout structured data, and contact page.
+
+### Sanity docs republished
+- `page` (pricing, id `94ef277a-9ea2-4dc5-a024-22091cd9e424`)
+- `service` (grooming, id `4b2c89ee-542d-4190-8800-62df0640ccb0`)
+- `settings` (id `0f056e49-7b45-4c84-84e6-f7ddf3abb654`)
+
+---
+
 ## Previous: Client Corrections — Round 2
 
 ### Status

@@ -77,7 +77,7 @@ export default function GroomingCalculator({ctaText, ctaLink, taxNote}: Grooming
 
         {result.isStartingAt && (
           <p className="font-sans text-[12px] text-cream/50 italic">
-            Final pricing determined by coat density, coat condition, and grooming time.
+            Final pricing determined by behavior, coat density, coat condition, and grooming time.
           </p>
         )}
       </div>
