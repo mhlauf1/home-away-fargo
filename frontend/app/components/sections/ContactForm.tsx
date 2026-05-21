@@ -181,6 +181,14 @@ export default function ContactForm({block}: ContactFormProps) {
                     )
                   })}
 
+                <p className="font-sans text-[12px] leading-[160%] text-charcoal/60">
+                  By providing your mobile phone number, you are giving your consent to receive
+                  calls and SMS/MMS messages to that number from Home Away From Home. Message
+                  frequency varies. Message and data rates may apply. You can text HELP for help at
+                  any time. To stop receiving text messages from Home Away From Home reply STOP. View
+                  Messaging Terms &amp; Privacy Policy.
+                </p>
+
                 {status === 'error' && (
                   <p className="font-sans text-[14px] text-red-600">{errorMessage}</p>
                 )}
