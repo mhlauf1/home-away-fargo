@@ -340,6 +340,13 @@ export const settings = defineType({
       description: 'Google Search Console verification meta tag content',
     }),
     defineField({
+      name: 'ctmScriptUrl',
+      title: 'CallTrackingMetrics Script URL',
+      type: 'string',
+      description:
+        'CallTrackingMetrics tracking script src (e.g. //598475.tctm.co/t.js). Enables dynamic number insertion.',
+    }),
+    defineField({
       name: 'localBusiness',
       title: 'Local Business (Structured Data)',
       type: 'object',
