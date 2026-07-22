@@ -1,5 +1,37 @@
 # Current Milestone
 
+## Contact Form Email Flow (2026-07-22)
+
+### Status
+Implemented on branch `feature/contact-email-recaptcha` — awaiting user review/commit. Blocked on account creation for live sending.
+
+### Summary
+Brought HAFH up to the current Embark contact-form pattern (boxers/wags, updated 2026-07-22). The nodemailer `/api/contact` route and POSTing `ContactForm.tsx` already existed; this adds the reCAPTCHA v3 layer and the SMTP env var scaffolding.
+
+### Changes
+- `frontend/app/api/contact/route.ts`: added `verifyRecaptcha()` (min score 0.5; skips when `RECAPTCHA_SECRET_KEY` unset; fails open if Google unreachable); strips `recaptchaToken` from the email body; 400 with phone-number fallback message on failed verification
+- `frontend/app/components/sections/ContactForm.tsx`: loads reCAPTCHA CDN script when `NEXT_PUBLIC_RECAPTCHA_SITE_KEY` is set; fetches a token on submit and includes it in the POST body. Kept HAFH's inline success state (no `/thank-you` redirect) and SMS-consent copy
+- `frontend/.env.example` + `frontend/.env.local`: added `SMTP_HOST` (smtp.gmail.com), `SMTP_PORT` (465), `SMTP_USER`, `SMTP_PASS`, `SMTP_FROM`, `CONTACT_FORM_TO_EMAIL` (hafhfacility@gmail.com in .env.local), `NEXT_PUBLIC_RECAPTCHA_SITE_KEY`, `RECAPTCHA_SECRET_KEY`
+- Not ported from boxers: `ALLOWED_RECIPIENTS` allowlist / `_recipientEmail` routing (HAFH is single-recipient)
+
+### Round 2 additions (same day)
+- Sender account: reusing `boxers.notifications@gmail.com` (Google blocked new-account phone verification); swap to a dedicated HAFH Gmail later if desired — env-var-only change
+- reCAPTCHA v3 keys created and filled in `.env.local` + Vercel
+- **Thank-you flow (matches boxers/wags):** created + published Sanity `page` doc `page-thank-you` (heroMinimal + ctaBanner "Back to Home", seo.noIndex=true), rendered by the existing `[slug]` route; `ContactForm.tsx` now `router.push('/thank-you')` on success instead of the inline success state (`successMessage` field no longer used)
+
+### Verified (no emails sent)
+- `npm run build` passes clean
+- `/thank-you` renders 200 with correct content + `noindex, follow` meta
+- reCAPTCHA secret key accepted by Google siteverify (dummy-token probe)
+- **SMTP login FAILED** (535 BadCredentials for boxers.notifications@gmail.com) — app password in `frontend/.env.local` needs re-checking. Re-test with `node <scratchpad>/verify-smtp.mjs` (transporter.verify — sends nothing)
+
+### Remaining
+1. Fix `SMTP_PASS` (compare against the working value in boxers' `frontend/.env.local`, or generate a fresh app password named "HAFH website")
+2. Mirror the corrected value in Vercel env
+3. Browser test locally (reCAPTCHA badge should appear on contact page) → submit → should land on `/thank-you`; first live email delivers to hafhfacility@gmail.com
+
+---
+
 ## Client Corrections — Round 3 (Go-Live Prep)
 
 ### Status
