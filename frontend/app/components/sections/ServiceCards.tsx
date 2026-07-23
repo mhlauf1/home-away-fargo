@@ -83,7 +83,7 @@ export default function ServiceCards({block}: ServiceCardsProps) {
                       </h3>
                     )}
                     {card.description && (
-                      <p className="font-sans text-[16px] leading-[150%] text-text-muted mb-4 flex-1">
+                      <p className="font-sans text-[16px] leading-[145%] text-text-muted mb-4 flex-1">
                         {card.description}
                       </p>
                     )}
