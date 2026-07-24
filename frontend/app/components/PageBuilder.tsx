@@ -37,6 +37,8 @@ function RenderSections({
   if (!page) {
     return null
   }
+  // First non-spacer block hosts the page's h1 (spacers render no content)
+  const firstContentIndex = pageBuilderSections.findIndex((block) => block._type !== 'spacer')
   return (
     <div
       data-sanity={dataAttr({
@@ -52,6 +54,7 @@ function RenderSections({
           block={block}
           pageId={page._id}
           pageType={page._type}
+          isFirstContent={index === firstContentIndex}
         />
       ))}
     </div>

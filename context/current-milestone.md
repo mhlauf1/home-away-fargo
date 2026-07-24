@@ -1,5 +1,39 @@
 # Current Milestone
 
+## SEO Crawl Fixes (2026-07-24)
+
+### Status
+Implemented on branch `fix/seo-crawl-fixes` — build passes, verified locally against a production build. Awaiting user review/commit.
+
+### Summary
+Simulated a Googlebot crawl of the live site (raw HTML, no JS). Site is fully server-rendered and readable; fixed the 8 issues the crawl surfaced.
+
+### Code changes (frontend)
+- `app/lib/constants.ts` (new): `SITE_URL = 'https://www.homeawayfargo.com'` — canonical www origin
+- `next.config.ts`: 308 redirect `/homepage` → `/` (the Sanity homepage doc was reachable as an indexable duplicate via the `[slug]` route)
+- `app/sitemap.ts`: absolute www URLs from `SITE_URL` instead of the request `host` header; skips the `homepage` slug; fetch now uses `perspective: 'published', stega: false` (required now that the route is static — the live-mode fetch returned empty at build time)
+- `app/robots.ts`: sitemap URL now www via `SITE_URL`
+- `app/layout.tsx`: `metadataBase` falls back to `SITE_URL` (absolute canonicals); JSON-LD fixes — Kennel/Organization/WebSite get `url`, Organization `logo` + Kennel `image` are real CDN URLs via `urlForImage` (were raw asset refs), `dayOfWeek` abbreviations ("Mo-Fr") expand to schema.org day names
+- `sanity/lib/utils.ts`: exported `urlForImage`
+- H1 fix for pages whose first section isn't a hero: `PageBuilder` computes the first non-spacer block and passes `isFirstContent`; `BlockRenderer` forwards it; `PricingPageTabs`, `ContactForm`, `ProcessSteps` render `h1` instead of `h2` when set (fixes /pricing, /contact, /new-clients)
+- `ContactForm.tsx`: replaced `useSearchParams()` with reading `window.location.search` in the effect — the hook forced the whole section to client-render, so the contact form (heading included) was absent from crawler HTML
+
+### Sanity changes (published)
+- Stripped trailing " | Home Away From Home" from `seo.metaTitle` on 6 pages + 4 services (layout title template appends the brand, so titles were doubled)
+- `seo.noIndex: true` on About (crawlable `[PLACEHOLDER: Our Story]` content) and Webcams (no webcam docs seeded) — also drops them from the sitemap
+- `settings.ogImage`: set to the first homepage marquee photo (was unset — no `og:image` anywhere); also feeds Kennel JSON-LD `image`
+
+### Verified locally (prod build, port 3111)
+- Titles deduped; canonicals absolute www; `/homepage` 308 → `/`; about + webcams `noindex, follow`; H1 present on pricing/contact/new-clients; sitemap = 9 URLs (root + 4 pages + 4 services); `og:image` 1200x627 crop; JSON-LD urls/logo/image/dayOfWeek all valid
+- Note: local rebuilds can serve stale Sanity content from `.next/cache` — `rm -rf .next` before rebuilding when verifying content changes
+
+### Open items
+- Apex `homeawayfargo.com` → www redirect is a 307 (temporary); switching to 308 is a Vercel dashboard setting (Domains → redirect), not code
+- Gallery page still indexable but photo-less (photos pending Tonya) — left indexed intentionally
+- When About content arrives, unset `seo.noIndex` on the About doc
+
+---
+
 ## Contact Form Email Flow (2026-07-22)
 
 ### Status
@@ -25,10 +59,14 @@ Brought HAFH up to the current Embark contact-form pattern (boxers/wags, updated
 - reCAPTCHA secret key accepted by Google siteverify (dummy-token probe)
 - **SMTP login FAILED** (535 BadCredentials for boxers.notifications@gmail.com) — app password in `frontend/.env.local` needs re-checking. Re-test with `node <scratchpad>/verify-smtp.mjs` (transporter.verify — sends nothing)
 
-### Remaining
-1. Fix `SMTP_PASS` (compare against the working value in boxers' `frontend/.env.local`, or generate a fresh app password named "HAFH website")
-2. Mirror the corrected value in Vercel env
-3. Browser test locally (reCAPTCHA badge should appear on contact page) → submit → should land on `/thank-you`; first live email delivers to hafhfacility@gmail.com
+### Resolved (2026-07-23)
+Client (Alex @ IMPACT) reported "Failed to send message" on a live test. Root cause: Vercel production `SMTP_PASS` held a stale/invalid value (the 500 branch of `/api/contact` only fires when `sendMail` throws — reCAPTCHA failures show a different message). Fix: copied the verified-working app password from boxers' `frontend/.env.local` (confirmed via `transporter.verify()` — a freshly generated app password did NOT authenticate, with or without spaces) into HAFH `frontend/.env.local` + Vercel Production/Preview, redeployed. Live test passed: `/thank-you` redirect + email delivered to hafhfacility@gmail.com with BCC to acockerham@impactmarketing.net.
+
+Notes:
+- Gmail app passwords work fine with the displayed spaces (boxers' 19-char spaced value authenticates); spaces were not the issue
+- Vercel vars flagged "sensitive" pull back as the literal `[SENSITIVE]` — not a sign of a bad value
+- Contact submissions are email-only (no backend/Sanity storage); a failed send is lost, so SMTP health is the whole ballgame
+- Sending account boxers.notifications@gmail.com is shared with boxers (~500 emails/day Gmail cap shared across both sites — fine at contact-form volume)
 
 ---
 

@@ -68,6 +68,7 @@ type PricingPageTabsProps = {
   index: number
   pageId: string
   pageType: string
+  isFirstContent?: boolean
 }
 
 const calculators = {
@@ -82,7 +83,8 @@ const serviceQueryStrings: Record<ServiceType, string> = {
   grooming: '?service=Grooming',
 }
 
-export default function PricingPageTabs({block}: PricingPageTabsProps) {
+export default function PricingPageTabs({block, isFirstContent}: PricingPageTabsProps) {
+  const HeadingTag = isFirstContent ? 'h1' : 'h2'
   const {eyebrow, heading, description, defaultTab, services, ctaText, ctaLink, taxNote} = block
 
   const [activeTab, setActiveTab] = useState<ServiceType>(defaultTab || 'daycare')
@@ -116,9 +118,9 @@ export default function PricingPageTabs({block}: PricingPageTabsProps) {
           <div className="text-center  pt-20 max-w-4xl mx-auto mb-8 lg:mb-10">
             {eyebrow && <Badge className="mb-3">{eyebrow}</Badge>}
             {heading && (
-              <h2 className="text-[36px] md:text-[58px] lg:text-[70px] font-semibold tracking-tight leading-[105%] text-forest mb-4">
+              <HeadingTag className="text-[36px] md:text-[58px] lg:text-[70px] font-semibold tracking-tight leading-[105%] text-forest mb-4">
                 {heading}
-              </h2>
+              </HeadingTag>
             )}
             {description && (
               <p className="font-sans text-[16px] md:text-[18px] leading-[150%] text-charcoal/80">

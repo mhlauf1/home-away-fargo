@@ -24,6 +24,7 @@ type ProcessStepsProps = {
   index: number
   pageId: string
   pageType: string
+  isFirstContent?: boolean
 }
 
 const bgColors: Record<string, string> = {
@@ -32,7 +33,8 @@ const bgColors: Record<string, string> = {
   forest: 'bg-forest text-cream',
 }
 
-export default function ProcessSteps({block}: ProcessStepsProps) {
+export default function ProcessSteps({block, isFirstContent}: ProcessStepsProps) {
+  const HeadingTag = isFirstContent ? 'h1' : 'h2'
   const {eyebrow, heading, description, steps, cta, backgroundColor} = block
   const bg = bgColors[stegaClean(backgroundColor) || 'cream'] || bgColors.cream
   const isDark = stegaClean(backgroundColor) === 'forest'
@@ -44,9 +46,9 @@ export default function ProcessSteps({block}: ProcessStepsProps) {
           <div className="text-center flex flex-col items-center mb-10 lg:mb-14 max-w-2xl mx-auto">
             {eyebrow && <Badge className="mb-3">{eyebrow}</Badge>}
             {heading && (
-              <h2 className="text-[36px] md:text-[48px] lg:text-[56px] max-w-[16ch] font-semibold tracking-tight leading-[105%] mb-4">
+              <HeadingTag className="text-[36px] md:text-[48px] lg:text-[56px] max-w-[16ch] font-semibold tracking-tight leading-[105%] mb-4">
                 {heading}
-              </h2>
+              </HeadingTag>
             )}
             {description && (
               <p
