@@ -10,6 +10,7 @@ import {FadeIn} from '@/app/components/ui/FadeIn'
 import {stegaClean} from '@sanity/client/stega'
 import Badge from '../ui/Badge'
 import type {ExtractPageBuilderType} from '@/sanity/lib/types'
+import {formatUsPhoneNumber} from '@/app/lib/formatUsPhoneNumber'
 
 type ContactFormProps = {
   block: ExtractPageBuilderType<'contactForm'>
@@ -29,6 +30,11 @@ declare global {
 }
 
 const RECAPTCHA_SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY
+const SUPPORTED_CONTACT_FIELD_NAMES = new Set(['name', 'email', 'phone', 'service', 'message'])
+
+function isSupportedContactFieldName(fieldName: string): boolean {
+  return SUPPORTED_CONTACT_FIELD_NAMES.has(fieldName)
+}
 
 async function getRecaptchaToken(): Promise<string | null> {
   if (!RECAPTCHA_SITE_KEY || !window.grecaptcha) return null
@@ -83,7 +89,10 @@ export default function ContactForm({block, isFirstContent}: ContactFormProps) {
   }, [formFields])
 
   const handleChange = (fieldName: string, value: string) => {
-    setFormData((prev) => ({...prev, [fieldName]: value}))
+    setFormData((prev) => ({
+      ...prev,
+      [fieldName]: fieldName === 'phone' ? formatUsPhoneNumber(value) : value,
+    }))
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -93,13 +102,16 @@ export default function ContactForm({block, isFirstContent}: ContactFormProps) {
 
     try {
       const recaptchaToken = await getRecaptchaToken()
+      const payload = Object.fromEntries(
+        Object.entries(formData).filter(
+          ([fieldName]) =>
+            fieldName === 'companyWebsite' || isSupportedContactFieldName(fieldName),
+        ),
+      )
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({
-          ...formData,
-          ...(recaptchaToken ? {recaptchaToken} : {}),
-        }),
+        body: JSON.stringify(recaptchaToken ? {...payload, recaptchaToken} : payload),
       })
 
       if (!res.ok) {
@@ -146,10 +158,24 @@ export default function ContactForm({block, isFirstContent}: ContactFormProps) {
           {/* Form */}
           <FadeIn immediate>
             <form onSubmit={handleSubmit} className="space-y-5">
+              <div className="absolute left-[-9999px]" aria-hidden="true">
+                <label htmlFor="company-website">Company website</label>
+                <input
+                  id="company-website"
+                  name="companyWebsite"
+                  type="text"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  value={formData.companyWebsite || ''}
+                  onChange={(e) => handleChange('companyWebsite', e.target.value)}
+                />
+              </div>
               {formFields &&
                 formFields.map((field) => {
                   const fieldName = stegaClean(field.fieldName) || ''
                   const fieldType = stegaClean(field.type) || 'text'
+
+                  if (!isSupportedContactFieldName(fieldName)) return null
 
                   return (
                     <div key={field._key}>
@@ -164,6 +190,7 @@ export default function ContactForm({block, isFirstContent}: ContactFormProps) {
                           name={fieldName}
                           required={field.required || false}
                           rows={4}
+                          maxLength={5000}
                           value={formData[fieldName] || ''}
                           onChange={(e) => handleChange(fieldName, e.target.value)}
                           className="w-full rounded-md border border-sand bg-white px-4 py-3 font-sans text-[16px] text-forest placeholder:text-charcoal/40 focus:outline-none focus:ring-2 focus:ring-terracotta/30 focus:border-terracotta transition-colors"
@@ -188,6 +215,18 @@ export default function ContactForm({block, isFirstContent}: ContactFormProps) {
                           type={fieldType}
                           name={fieldName}
                           required={field.required || false}
+                          maxLength={
+                            fieldName === 'email' ? 254 : fieldName === 'phone' ? 14 : 100
+                          }
+                          autoComplete={
+                            fieldName === 'name'
+                              ? 'name'
+                              : fieldName === 'email'
+                                ? 'email'
+                                : fieldName === 'phone'
+                                  ? 'tel'
+                                  : 'off'
+                          }
                           value={formData[fieldName] || ''}
                           onChange={(e) => handleChange(fieldName, e.target.value)}
                           className="w-full rounded-md border border-sand bg-white px-4 py-3 font-sans text-[16px] text-forest placeholder:text-charcoal/40 focus:outline-none focus:ring-2 focus:ring-terracotta/30 focus:border-terracotta transition-colors"
@@ -249,7 +288,7 @@ export default function ContactForm({block, isFirstContent}: ContactFormProps) {
                   <div className="rounded-lg overflow-hidden">
                     <Image
                       id={image.asset._ref}
-                      alt={(image as any).alt || heading || 'Contact'}
+                      alt={image.alt || heading || 'Contact'}
                       width={700}
                       crop={image.crop}
                       hotspot={image.hotspot}
