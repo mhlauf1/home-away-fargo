@@ -1,5 +1,40 @@
 # Current Milestone
 
+## Contact form hardening rollout (2026-07-26)
+
+### Status
+
+Implemented and locally verified on branch `fix/contact-form-hardening`; Preview and PR review are pending.
+
+### Inventory
+
+- Published fields: `name`, `email`, `phone`, `service`, and `message`.
+- Required fields: `name`, `email`, and `message`.
+- Approved service values: Daycare, Boarding, Grooming, Cat Services, and Other.
+- Fixed primary recipient: `hafhfacility@gmail.com`.
+- Required BCC: `acockerham@impactmarketing.net`.
+- Production hostnames: `homeawayfargo.com` and `www.homeawayfargo.com`.
+- Preview hostname validation: exact match to Vercel's current deployment or branch hostname.
+- Fallback phone: `701-532-1618`.
+- Successful delivery path: `/thank-you`.
+- Production and Preview contain SMTP, primary-recipient, both reCAPTCHA variables, and the explicit `CONTACT_FORM_BCC_EMAIL` value. A new deployment is required for the newly added BCC variable to take effect.
+
+### Scope
+
+- Apply the approved Wags request-size, strict validation, recognized-field, honeypot, reCAPTCHA action/hostname, bounded timeout/retry, production-configuration, and visibly flagged provider-outage behavior.
+- Preserve Home Away's fixed recipient, required IMPACT BCC, published fields, SMS-consent copy, fallback phone, and `/thank-you` redirect.
+- Add focused non-delivery tests and complete lint, type-check, build, Preview, and read-only browser QA before Production.
+- Do not submit the form or send email during this rollout. Live delivery/BCC verification remains deferred to the coordinated portfolio acceptance window.
+
+### Local verification
+
+- Ten focused validation, hostname, honeypot, request-body, and phone-formatting tests pass.
+- Focused ESLint for all changed contact-form files passes.
+- Full repository lint still reports 105 errors and 7 warnings in pre-existing unrelated components.
+- TypeScript and the production build pass.
+- Safe local production API checks passed without sending email: non-JSON `400`, honeypot `200`, recipient manipulation `400`, missing production secret `503`, and oversized body `413`.
+- Local browser QA passed without submission: published fields and required states render, the honeypot is hidden and removed from keyboard navigation, phone input formats to `(701) 532-1618`, field limits and SMS-consent copy are preserved, and no browser warnings or errors were observed.
+
 ## SEO Crawl Fixes (2026-07-24)
 
 ### Status
