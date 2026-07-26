@@ -14,7 +14,7 @@ Implemented and locally verified on branch `fix/contact-form-hardening`; Preview
 - Fixed primary recipient: `hafhfacility@gmail.com`.
 - Required BCC: `acockerham@impactmarketing.net`.
 - Production hostnames: `homeawayfargo.com` and `www.homeawayfargo.com`.
-- Vercel project hostname pattern: `home-away-fargo-frontend-*-mhlauf1s-projects.vercel.app`.
+- Preview hostname validation: exact match to Vercel's current deployment or branch hostname.
 - Fallback phone: `701-532-1618`.
 - Successful delivery path: `/thank-you`.
 - Production and Preview contain SMTP, primary-recipient, both reCAPTCHA variables, and the explicit `CONTACT_FORM_BCC_EMAIL` value. A new deployment is required for the newly added BCC variable to take effect.

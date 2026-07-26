@@ -70,15 +70,32 @@ test('allows only the intended production, preview, and local hostnames', () => 
       {
         nodeEnv: 'production',
         vercelEnv: 'preview',
+        vercelUrl: 'home-away-fargo-frontend-ab12cd34-mhlauf1s-projects.vercel.app',
       },
     ),
     true,
   )
   assert.equal(
-    isAllowedRecaptchaHostname('unrelated-project-mhlauf1s-projects.vercel.app', {
-      nodeEnv: 'production',
-      vercelEnv: 'preview',
-    }),
+    isAllowedRecaptchaHostname(
+      'home-away-fargo-frontend-git-fix-conta-6f9ecd-mhlauf1s-projects.vercel.app',
+      {
+        nodeEnv: 'production',
+        vercelEnv: 'preview',
+        vercelBranchUrl:
+          'home-away-fargo-frontend-git-fix-conta-6f9ecd-mhlauf1s-projects.vercel.app',
+      },
+    ),
+    true,
+  )
+  assert.equal(
+    isAllowedRecaptchaHostname(
+      'home-away-fargo-frontend-unrelated-mhlauf1s-projects.vercel.app',
+      {
+        nodeEnv: 'production',
+        vercelEnv: 'preview',
+        vercelUrl: 'home-away-fargo-frontend-ab12cd34-mhlauf1s-projects.vercel.app',
+      },
+    ),
     false,
   )
   assert.equal(isAllowedRecaptchaHostname('localhost', {nodeEnv: 'development'}), true)
