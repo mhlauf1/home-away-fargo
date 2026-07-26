@@ -216,7 +216,7 @@ export default function ContactForm({block, isFirstContent}: ContactFormProps) {
                           name={fieldName}
                           required={field.required || false}
                           maxLength={
-                            fieldName === 'email' ? 254 : fieldName === 'phone' ? 14 : 100
+                            fieldName === 'email' ? 254 : fieldName === 'phone' ? 32 : 100
                           }
                           autoComplete={
                             fieldName === 'name'
