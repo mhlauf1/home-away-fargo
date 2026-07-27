@@ -1,5 +1,7 @@
 # CMS Audit — Home Away From Home (`home-away-fargo`)
 
+> **SNAPSHOT — captured July 2026.** This audit reflects the codebase and dataset at the time it was written and is NOT kept up to date. Verify any finding against the current code before acting on it.
+
 **Audited:** 2026-07-10 · **Model:** claude-fable-5 · **Companion files:** `cms-audit/schema-inventory.json`, `cms-audit/render-contract.md`
 
 > Clone lineage: this repo was cloned from `hound-3` (Hound Around Resort). Drift vs hound-3 was established by **byte-level diff of both repos** (`diff -rq`), so every "identical to hound-3" claim below is mechanical, not judgment.
