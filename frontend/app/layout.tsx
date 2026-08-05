@@ -175,6 +175,7 @@ export default async function RootLayout({children}: {children: React.ReactNode}
   const ga4Id = settings?.ga4MeasurementId
   const gtmId = settings?.gtmContainerId
   const ctmScriptUrl = settings?.ctmScriptUrl
+  const embedReachScriptUrl = settings?.embedReachScriptUrl
 
   // Inject services as dropdown children into the "Services" nav item
   const navItems = settings?.navItems?.map((item: any) => {
@@ -239,6 +240,9 @@ export default async function RootLayout({children}: {children: React.ReactNode}
           />
         )}
         {ctmScriptUrl && <Script async src={ctmScriptUrl} strategy="afterInteractive" />}
+        {embedReachScriptUrl && (
+          <Script async src={embedReachScriptUrl} strategy="afterInteractive" />
+        )}
         {ga4Id && !gtmId && (
           <>
             <Script src={`https://www.googletagmanager.com/gtag/js?id=${ga4Id}`} strategy="afterInteractive" />

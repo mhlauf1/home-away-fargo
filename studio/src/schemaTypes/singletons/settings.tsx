@@ -347,6 +347,14 @@ export const settings = defineType({
         'CallTrackingMetrics tracking script src (e.g. //598475.tctm.co/t.js). Enables dynamic number insertion.',
     }),
     defineField({
+      name: 'embedReachScriptUrl',
+      title: 'Goose Tracking Pixel (EmbedReach) Script URL',
+      type: 'url',
+      description:
+        'Goose/EmbedReach tracking pixel script src (e.g. https://public.embedreach.com/scripts/.../analytics.js). Loaded on every page to attribute bookings to ads.',
+      validation: (Rule) => Rule.uri({scheme: ['https']}),
+    }),
+    defineField({
       name: 'localBusiness',
       title: 'Local Business (Structured Data)',
       type: 'object',
